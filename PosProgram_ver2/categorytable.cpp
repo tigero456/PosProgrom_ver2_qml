@@ -3,9 +3,26 @@
 CategoryTable::CategoryTable(QObject *parent)
     : QAbstractTableModel{parent}
 {
-    cartegoryTable.append({"라면", "과자", "음료", "빵", "아이스\n크림"});
-    cartegoryTable.append({"커피", "주류", "껌", "사탕", "삼각김밥"});
-    cartegoryTable.append({"편의용품", "세제", "견과류", "마른안주", "냉동식품"});
+    db=new SqlQueryModel();
+    //model = new QSqlTableModel(this);
+
+    QSqlQuery query;
+
+    query.prepare("select cartegory_name from cartegory");
+    query.exec();
+
+    QVector<QString> e;
+
+    int i=0;
+    while(query.next()){
+        e.append(query.value(0).toString());
+        i++;
+        if(i==5){
+            cartegoryTable.append(e);
+            e.clear();
+            i=0;
+        }
+    }
 }
 
 int CategoryTable::rowCount(const QModelIndex &) const{
@@ -39,3 +56,4 @@ QHash<int, QByteArray> CategoryTable::roleNames() const{
     roles[HeadingRole] = "heading";
     return roles;
 }
+

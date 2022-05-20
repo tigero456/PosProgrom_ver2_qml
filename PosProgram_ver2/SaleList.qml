@@ -47,6 +47,43 @@ Window {
                 height: 440
                 color: "#ffffff"
                 border.width: 1
+
+                TableView {
+                    x: 5
+                    y: 5
+                    width: 380
+                    height: 435
+                    columnSpacing: 10
+                    rowSpacing: 10
+                    clip: true
+
+                    property var columnWidths: [95, 95, 95, 95]
+                    columnWidthProvider: function (column) { return columnWidths[column] }
+
+                    property alias tableVerticalBar: productVerticalBar
+
+                    ScrollBar.vertical: ScrollBar {
+                        id: productVerticalBar
+                        policy:ScrollBar.AlwaysOn
+                    }
+
+                    model: CategoryTable {}
+
+                    delegate: Rectangle{
+                        border.color: "gray"
+                        border.width: 0.5
+
+                        Button {
+                            width: 70
+                            height: 50
+                            text: categorytabledata
+                            font.pointSize: 9
+                            onClicked: {
+                                saletext2.text = categorytabledata
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -126,6 +163,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}
+    D{i:0;formeditorZoom:0.9}
 }
 ##^##*/

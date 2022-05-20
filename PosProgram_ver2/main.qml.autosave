@@ -4,12 +4,16 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Fusion
 import TableModel 0.1
 import CategoryTable 0.2
+import ProductTable 0.3
+import SqlQueryModel 0.4
 
 Window {
     width: 500
     height: 800
     visible: true
     title: qsTr("편의점 POS")
+
+    signal qmlSignal(msg: string)
 
     Dialog {
             id: di
@@ -117,7 +121,50 @@ Window {
                     height: 440
                     color: "#ffffff"
                     border.width: 1
+
+                    
+                    TableView {
+                        x: 5
+                        y: 5
+                        width: 380
+                        height: 435
+                        columnSpacing: 10
+                        rowSpacing: 80
+                        clip: true
+
+                        property var columnWidths: [87.5, 87.5, 87.5, 87.5]
+                        columnWidthProvider: function (column) { return columnWidths[column] }
+
+                        
+                        property alias tableVerticalBar: productVerticalBar
+
+                        ScrollBar.vertical: ScrollBar {
+                            id: productVerticalBar
+                            policy:ScrollBar.AlwaysOn
+                        }
+
+                        model: ProductTable {}
+
+                        delegate: Rectangle{
+                            height: 100
+
+                            Button {
+                                width: 88
+                                height: 115
+
+                                Text {
+                                    text: producttabledata
+                                    font.pointSize: 9
+                                    anchors.bottom: parent.bottom
+                                }
+                                onClicked: {
+                                    //saletext2.text = categorytabledata
+                                }
+                            }
+                        }
+                    }
                 }
+
             }
 
             Rectangle {
@@ -171,12 +218,15 @@ Window {
                             border.width: 0.5
 
                             Button {
+                                id:category_btn
                                 width: 70
                                 height: 50
                                 text: categorytabledata
                                 font.pointSize: 9
                                 onClicked: {
                                     saletext2.text = categorytabledata
+                                    qmlSignal(categorytabledata)
+
                                 }
                             }
                         }
@@ -1228,6 +1278,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.9}D{i:2}D{i:4}D{i:6}D{i:134}
+    D{i:0;formeditorZoom:0.5}
 }
 ##^##*/

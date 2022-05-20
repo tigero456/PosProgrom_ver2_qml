@@ -1,12 +1,12 @@
-#ifndef CATEGORYTABLE_H
-#define CATEGORYTABLE_H
+#ifndef PRODUCTTABLE_H
+#define PRODUCTTABLE_H
 
 #include <QObject>
 #include <QAbstractTableModel>
 #include <QSqlTableModel>
 #include "sqlquerymodel.h"
 
-class CategoryTable : public QAbstractTableModel
+class ProductTable : public QAbstractTableModel
 {
     Q_OBJECT
     enum TableRoles{
@@ -15,7 +15,7 @@ class CategoryTable : public QAbstractTableModel
     };
 
 public:
-    explicit CategoryTable(QObject *parent = nullptr);
+    explicit ProductTable(QObject *parent = nullptr);
     int rowCount(const QModelIndex & = QModelIndex()) const override;
 
     int columnCount(const QModelIndex & = QModelIndex()) const override;
@@ -25,13 +25,16 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
 signals:
+    void qmlSignal(QString msg);
 
 public slots:
-private:
-    QVector<QVector<QString>> cartegoryTable;
-    //QSqlTableModel  *model;
-    SqlQueryModel *db;
+    void cppSlot(const QString &msg);
 
+private:
+    QVector<QVector<QString>> productTable;
+    //QSqlTableModel *model;
+    SqlQueryModel *db;
+    QString c_name=nullptr;
 };
 
-#endif // CATEGORYTABLE_H
+#endif // PRODUCTTABLE_H
