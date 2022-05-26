@@ -2,18 +2,297 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Fusion
+import QtQuick.Layouts 1.3
 import TableModel 0.1
 import CategoryTable 0.2
 import ProductTable 0.3
 import SqlQueryModel 0.4
+import ManageProductTable 0.5
 
 Window {
+    visible: true
+    id:wwwindow
     width: 500
     height: 800
-    visible: true
     title: qsTr("편의점 POS")
 
+    SqlQueryModel{
+
+    }
+
     signal qmlSignal(msg: string)
+
+    property date curentTime: new Date()
+    property int hour: curentTime.getHours()
+    property int minutes: curentTime.getMinutes()
+    property int seconds: curentTime.getSeconds()
+    property date curentDate: new Date()
+    property int year: curentDate.getFullYear()
+    property int month: curentDate.getMonth()
+    property int day: curentDate.getDate()
+
+    Loader{ id:loader }
+
+    Dialog{
+        id:infowindow
+        x:20
+        y:150
+        //width: 400
+        //height: 600
+        title: "상품정보 조회"
+        implicitWidth: 450;
+        implicitHeight: 520;
+        modal: true;
+
+        Rectangle {
+            id: rectangle111
+            color: "#ffffff"
+            anchors.fill: parent
+            anchors.rightMargin: 0
+            anchors.bottomMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
+
+            BorderImage {
+                id: borderImage
+                x: 8
+                y: 51
+                width: 113
+                height: 180
+                source: "qrc:/qtquickplugin/images/template_image.png"
+            }
+
+            Rectangle {
+                id: rectangle112
+                x: 133
+                y: 43
+                width: 291
+                height: 189
+                color: "#ffffff"
+
+                border.color: "black"
+                border.width: 1.5
+
+                Text {
+                    id: text222
+                    x: 8
+                    y: 13
+                    width: 92
+                    height: 29
+                    text: "상품코드"
+                    font.pixelSize: 20
+                }
+
+                Text {
+                    id: text333
+                    x: 8
+                    y: 54
+                    width: 92
+                    height: 29
+                    text: "상품명"
+                    font.pixelSize: 20
+                }
+
+                Text {
+                    id: text444
+                    x: 8
+                    y: 95
+                    width: 92
+                    height: 29
+                    text: "상품분류"
+                    font.pixelSize: 20
+                }
+
+                Rectangle {
+                    id: rectangle222
+                    x: 102
+                    y: 13
+                    width: 176
+                    height: 29
+                    color: "#ffffff"
+                    border.color: "black"
+                    border.width: 1
+                }
+
+                Rectangle {
+                    id: rectangle333
+                    x: 102
+                    y: 54
+                    width: 176
+                    height: 29
+                    color: "#ffffff"
+                    border.color: "black"
+                    border.width: 1
+                }
+
+                Rectangle {
+                    id: rectangle444
+                    x: 102
+                    y: 95
+                    width: 176
+                    height: 29
+                    color: "#ffffff"
+                    border.color: "#000000"
+                    border.width: 1
+                }
+
+                Text {
+                    id: text555
+                    x: 8
+                    y: 137
+                    width: 67
+                    height: 29
+                    text: "판매가"
+                    font.pixelSize: 20
+                }
+
+                Rectangle {
+                    id: rectangle555
+                    x: 102
+                    y: 137
+                    width: 176
+                    height: 29
+                    color: "#ffffff"
+                    border.color: "#000000"
+                    border.width: 1
+                }
+            }
+
+            Text {
+                id: text111
+                x: 133
+                y: 8
+                width: 92
+                height: 29
+                text: "상품정보"
+                font.pixelSize: 20
+            }
+
+            Rectangle {
+                id: rectangle666
+                x: 8
+                y: 278
+                width: 416
+                height: 153
+                color: "#ffffff"
+                border.color: "black"
+                border.width: 1.5
+                Text {
+                    id: text666
+                    x: 11
+                    y: 8
+                    width: 136
+                    height: 29
+                    text: "현 재고 수량"
+                    font.pixelSize: 20
+                }
+
+                Text {
+                    id: text777
+                    x: 9
+                    y: 43
+                    width: 141
+                    height: 29
+                    text: "입고 예정 수량"
+                    font.pixelSize: 20
+                }
+
+                Text {
+                    id: text888
+                    x: 10
+                    y: 79
+                    width: 139
+                    height: 29
+                    text: "금일 폐기 수량"
+                    font.pixelSize: 20
+                }
+
+                Rectangle {
+                    id: rectangle777
+                    x: 161
+                    y: 8
+                    width: 135
+                    height: 29
+                    color: "#ffffff"
+                    border.color: "#000000"
+                    border.width: 1
+                }
+
+                Rectangle {
+                    id: rectangle888
+                    x: 161
+                    y: 43
+                    width: 135
+                    height: 29
+                    color: "#ffffff"
+                    border.color: "#000000"
+                    border.width: 1
+                }
+
+                Rectangle {
+                    id: rectangle999
+                    x: 161
+                    y: 79
+                    width: 135
+                    height: 29
+                    color: "#ffffff"
+                    border.color: "#000000"
+                    border.width: 1
+                }
+
+                Rectangle {
+                    id: rectangle109
+                    x: 161
+                    y: 114
+                    width: 135
+                    height: 29
+                    color: "#ffffff"
+                    border.color: "#000000"
+                    border.width: 1
+                }
+
+                Text {
+                    id: text119
+                    x: 11
+                    y: 114
+                    width: 156
+                    height: 29
+                    text: "당일 판매 수량"
+                    font.pixelSize: 20
+                }
+            }
+
+            Text {
+                id: text106
+                x: 8
+                y: 243
+                width: 92
+                height: 29
+                text: "재고정보"
+                font.pixelSize: 20
+            }
+
+            Button {
+                id: button66
+                x: 247
+                y: 440
+                width: 82
+                height: 32
+                text: "확인"
+                font.pixelSize: 20
+            }
+
+            Button {
+                id: button197
+                x: 335
+                y: 440
+                width: 82
+                height: 32
+                text: "취소"
+                font.pixelSize: 20
+            }
+        }
+    }
 
     Dialog {
             id: di
@@ -78,7 +357,366 @@ Window {
             onRejected: console.log("Cancel clicked")
         }
 
-    ApplicationWindow{
+    Window {
+        id:managewindow
+
+        visible:false
+        width: 600
+        height: 500
+        title: qsTr("관리자 모드")
+
+        Rectangle {
+            id: rectangle542254
+            color: "#ffffff"
+            anchors.fill: parent
+
+            Rectangle {
+                id: rectangle323462
+                x: 0
+                y: 0
+                width: 600
+                height: 76
+                color: "#12ca00"
+                radius: 10
+            }
+
+            Rectangle {
+                id: rectangle12436
+                x: 0
+                y: 0
+                width: 600
+                height: 47
+                color: "#12ca00"
+                radius: 0
+            }
+
+
+            Rectangle {
+                id: rectangle224366
+                x: 0
+                y: 13
+                width: 600
+                height: 63
+                color: "#0c8900"
+                radius: 10
+                border.color: "#c6ffcb"
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.63927
+                        color: "#0e8301"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#17d916"
+                    }
+
+                    orientation: Gradient.Horizontal
+                }
+
+                Rectangle {
+                    id: rectangle43452
+                    x: 8
+                    y: 8
+                    width: 96
+                    height: 47
+                    color: "#0e8301"
+
+                    Text {
+                        id: text12345
+                        width: 49
+                        height: 30
+                        color: "#ffffff"
+                        text: qsTr("발주")
+                        font.pixelSize: 25
+                        font.bold: true
+                        anchors.centerIn: parent
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle56272
+                    x: 130
+                    y: 8
+                    width: 96
+                    height: 47
+                    color: "#0e8301"
+
+                    Text {
+                        id: text223462
+                        width: 49
+                        height: 30
+                        color: "#ffffff"
+                        text: qsTr("재고")
+                        font.pixelSize: 25
+                        font.bold: true
+                        anchors.centerIn: parent
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle6345326
+                    x: 254
+                    y: 6
+                    width: 96
+                    height: 47
+                    color: "#0e8301"
+                    Text {
+                        id: text6584384
+                        width: 97
+                        height: 30
+                        color: "#ffffff"
+                        text: qsTr("판매화면")
+                        font.pixelSize: 25
+                        anchors.centerIn: parent
+                        font.bold: true
+                    }
+                    MouseArea{
+                        x:0
+                        y:0
+                        width: 96
+                        height: 47
+                        onClicked: {
+                            managewindow.close()
+                            wwwindow.show()
+                        }
+                    }
+                }
+            }
+
+            Rectangle {
+                id: rectangle75678
+                x: 8
+                y: 100
+                width: 584
+                height: 392
+                color: "#10b800"
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0
+                        color: "#70ca1d"
+                    }
+
+                    GradientStop {
+                        position: 0.21461
+                        color: "#ffffff"
+                    }
+
+                    orientation: Gradient.Vertical
+                    GradientStop {
+                        position: 0
+                        color: "#70ca1d"
+                    }
+                }
+
+                Text {
+                    id: text546543
+                    x: 8
+                    y: 8
+                    width: 52
+                    height: 27
+                    color: "#002a00"
+                    text: qsTr("분류")
+                    font.pixelSize: 20
+                }
+
+                ComboBox {
+                    id: comboBox234
+                    x: 74
+                    y: 11
+                    width: 161
+                    height: 24
+
+                    model: ListModel{
+                        id:ll
+                        ListElement{text:"라면"}
+                        ListElement{text:"과자"}
+                        ListElement{text:"음료"}
+                        ListElement{text:"아이스크림"}
+                        ListElement{text:"빵"}
+                        ListElement{text:"커피"}
+                        ListElement{text:"주류"}
+                        ListElement{text:"초콜릿"}
+                        ListElement{text:"껌"}
+                        ListElement{text:"냉동식품"}
+                        ListElement{text:"편의용품"}
+                        ListElement{text:"세제"}
+                        ListElement{text:"견과류"}
+                        ListElement{text:"마른안주"}
+                        ListElement{text:"삼각김밥"}
+                    }
+
+                    //comboBox234.currentText
+
+
+                }
+
+                Rectangle {
+                    id: rectangle835473
+                    x: 8
+                    y: 46
+                    width: 568
+                    height: 338
+                    color: "#ffffff"
+
+                    TableView {
+                        id: producttableview2
+                        x: 5
+                        y: 50
+                        width: 558
+                        height: 289
+                        columnSpacing: 1
+                        rowSpacing: 1
+                        clip: true
+
+                        property var columnWidths: [90, 281, 89, 88]
+                        columnWidthProvider: function (column) { return columnWidths[column] }
+
+                        property alias tableVerticalBar: tableVerticalBar23
+
+                        ScrollBar.vertical: ScrollBar {
+                            id: tableVerticalBar23
+                            policy:ScrollBar.AlwaysOn
+                        }
+
+                        model: ManageProductTable {}
+
+                        delegate: Rectangle{
+                            border.color: "gray"
+                            border.width: 0.5
+                            Text {
+                                text: mproductTabletabledata
+                                font.pointSize: 17
+                            }
+                        }
+                    }
+                    Rectangle {
+                        id: rectangle113333
+                        x: 5
+                        y: 4
+                        width: 90
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+
+                        Text {
+                            id: text73333
+                            x: 8
+                            y: 8
+                            text: qsTr("상품코드")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle123333
+                        x: 95
+                        y: 4
+                        width: 282
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+
+                        Text {
+                            id: text8887
+                            x: 8
+                            y: 8
+                            text: qsTr("상품명")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle133333
+                        x: 377
+                        y: 4
+                        width: 90
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+
+                        Text {
+                            id: text93333
+                            x: 8
+                            y: 8
+                            text: qsTr("상품가격")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle143333
+                        x: 467
+                        y: 4
+                        width: 89
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+
+                        Text {
+                            id: text103333
+                            x: 8
+                            y: 8
+                            text: qsTr("수량")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle9354623
+                    x: 368
+                    y: 11
+                    width: 150
+                    height: 24
+                    color: "#ffffff"
+
+                    TextEdit {
+                        id: textEdit24352
+                        x: 0
+                        y: 0
+                        width: 150
+                        height: 24
+                        text: qsTr("Text Edit")
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignRight
+                    }
+                }
+
+                Button {
+                    id: button23456
+                    x: 524
+                    y: 8
+                    width: 46
+                    height: 32
+                    text: qsTr("검색")
+                    font.pointSize: 14
+                    font.bold: true
+                }
+            }
+
+            Text {
+                id: text434753
+                x: 13
+                y: 74
+                width: 72
+                height: 26
+                color: "#ff7a35"
+                text: qsTr("재고")
+                font.pixelSize: 20
+            }
+
+
+        }
+
+    }
+
+    Window{
         visible:false
 
         id:salelistwindow
@@ -122,8 +760,12 @@ Window {
                     color: "#ffffff"
                     border.width: 1
 
+                    function ppp(){
+
+                    }
 
                     TableView {
+                        id: producttableview
                         x: 5
                         y: 5
                         width: 380
@@ -136,13 +778,11 @@ Window {
                         columnWidthProvider: function (column) { return columnWidths[column] }
 
 
-                        category_btn.clicked {
-                            property alias tableVerticalBar: productVerticalBar
+                        property alias tableVerticalBar: productVerticalBar
 
-                            ScrollBar.vertical: ScrollBar {
-                                id: productVerticalBar
-                                policy:ScrollBar.AlwaysOn
-                            }
+                        ScrollBar.vertical: ScrollBar {
+                            id: productVerticalBar
+                            policy:ScrollBar.AlwaysOn
                         }
 
                         model: ProductTable {}
@@ -166,7 +806,6 @@ Window {
                         }
                     }
                 }
-
             }
 
             Rectangle {
@@ -225,9 +864,13 @@ Window {
                                 height: 50
                                 text: categorytabledata
                                 font.pointSize: 9
+
                                 onClicked: {
                                     saletext2.text = categorytabledata
+                                    //wwwindow.close()
                                     qmlSignal(categorytabledata)
+                                    //producttableview.reloadData()
+                                    //loader.source=producttableview
 
                                 }
                             }
@@ -244,16 +887,9 @@ Window {
                 }
             }
         }
+
     }
 
-    property date curentTime: new Date()
-    property int hour: curentTime.getHours()
-    property int minutes: curentTime.getMinutes()
-    property int seconds: curentTime.getSeconds()
-    property date curentDate: new Date()
-    property int year: curentDate.getFullYear()
-    property int month: curentDate.getMonth()
-    property int day: curentDate.getDate()
 
     Column {
         id: column
@@ -961,6 +1597,11 @@ Window {
                     width: 108
                     height: 58
                     text: "남 13\n객  층"
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "남13세이하"
+                        text16.color="red"
+                    }
                 }
 
                 Button {
@@ -970,6 +1611,11 @@ Window {
                     width: 102
                     height: 58
                     text: qsTr("여 13\n객  층")
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "여13세이하"
+                        text16.color="red"
+                    }
                 }
 
                 Button {
@@ -996,11 +1642,11 @@ Window {
                     y: 236
                     width: 51
                     height: 58
-                    text: qsTr("통계")
-
+                    text: qsTr("상품\n조회")
                     onClicked: {
-                        di.open();
+                        infowindow.open();
                     }
+
                 }
 
                 Button {
@@ -1011,7 +1657,7 @@ Window {
                     height: 51
                     opacity: 1
                     visible: true
-                    text: qsTr("폐기")
+                    text: qsTr("저널\n조회")
                 }
 
                 Button {
@@ -1041,6 +1687,11 @@ Window {
                     width: 108
                     height: 56
                     text: "남\n14~19"
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "남14~19"
+                        text16.color="red"
+                    }
                 }
 
                 Button {
@@ -1050,6 +1701,11 @@ Window {
                     width: 102
                     height: 56
                     text: qsTr("여\n14~19")
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "여14~19"
+                        text16.color="red"
+                    }
                 }
 
                 Button {
@@ -1058,7 +1714,10 @@ Window {
                     y: 178
                     width: 51
                     height: 56
-                    text: qsTr("저널\n조회")
+                    text: qsTr("통계")
+                    onClicked: {
+                        di.open();
+                    }
                 }
 
                 Button {
@@ -1090,8 +1749,13 @@ Window {
                     width: 56
                     height: 56
                     text: qsTr("중지\n(ESC)")
-                }
+                    onClicked: {
+                        salelistwindow.close()
+                        wwwindow.close()
+                        loader.source="main.qml"
 
+                    }
+                }
                 Button {
                     id: button1
                     x: 61
@@ -1117,6 +1781,11 @@ Window {
                     width: 110
                     height: 56
                     text: qsTr("남\n50대")
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "남50세이상"
+                        text16.color="d9eeff"
+                    }
                 }
 
                 Button {
@@ -1126,6 +1795,11 @@ Window {
                     width: 102
                     height: 56
                     text: qsTr("여\n50대")
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "여50세이상"
+                        text16.color="ffdefc"
+                    }
                 }
 
                 Button {
@@ -1134,7 +1808,12 @@ Window {
                     y: 4
                     width: 51
                     height: 56
-                    text: qsTr("초기\n화면")
+                    text: qsTr("관리자\n모드")
+                    onClicked: {
+                        salelistwindow.close()
+                        wwwindow.close()
+                        managewindow.show()
+                    }
                 }
 
                 Button {
@@ -1162,6 +1841,11 @@ Window {
                     width: 110
                     height: 56
                     text: "남\n30~49"
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "남30~49"
+                        text16.color="d9eeff"
+                    }
                 }
 
                 Button {
@@ -1171,6 +1855,11 @@ Window {
                     width: 102
                     height: 56
                     text: qsTr("여\n30~49")
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "여30~49"
+                        text16.color="ffdefc"
+                    }
                 }
 
                 Button {
@@ -1209,6 +1898,11 @@ Window {
                     width: 108
                     height: 56
                     text: "남\n20대"
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "남20~29"
+                        text16.color="d9eeff"
+                    }
                 }
 
                 Button {
@@ -1218,6 +1912,11 @@ Window {
                     width: 102
                     height: 56
                     text: qsTr("여\n20대")
+                    onClicked: {
+                        rectangle1.visible = !rectangle1.visible
+                        text16.text = "여20~29"
+                        text16.color="ffdefc"
+                    }
                 }
 
                 Button {
@@ -1226,7 +1925,7 @@ Window {
                     y: 120
                     width: 51
                     height: 56
-                    text: qsTr("상품\n조회")
+                    text: qsTr("폐기")
                 }
 
                 Button {
@@ -1274,12 +1973,12 @@ Window {
             }
         }
     }
+
+
 }
-
-
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.5}
+    D{i:0;formeditorZoom:0.9}
 }
 ##^##*/

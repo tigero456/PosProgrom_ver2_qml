@@ -3,7 +3,7 @@
 CategoryTable::CategoryTable(QObject *parent)
     : QAbstractTableModel{parent}
 {
-    db=new SqlQueryModel();
+    //db=new SqlQueryModel();
     //model = new QSqlTableModel(this);
 
     QSqlQuery query;

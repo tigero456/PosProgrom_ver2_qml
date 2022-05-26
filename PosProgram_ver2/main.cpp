@@ -4,6 +4,7 @@
 #include "categorytable.h"
 #include "sqlquerymodel.h"
 #include "producttable.h"
+#include "manageproducttable.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CategoryTable>("CategoryTable", 0, 2, "CategoryTable");
     qmlRegisterType<ProductTable>("ProductTable", 0, 3, "ProductTable");
     qmlRegisterType<SqlQueryModel>("SqlQueryModel", 0, 4, "SqlQueryModel");
+    qmlRegisterType<ManageProductTable>("ManageProductTable", 0, 5, "ManageProductTable");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
