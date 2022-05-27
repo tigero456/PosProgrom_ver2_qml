@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ramentable.qml</file>
+        <file>snacktable.qml</file>
+        <file>watertable.qml</file>
+        <file>icecreamtable.qml</file>
+        <file>breadtable.qml</file>
+        <file>coffeetable.qml</file>
+        <file>alcoholtable.qml</file>
+        <file>chocolatetable.qml</file>
+    </qresource>
+</RCC>
