@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <QtCharts>
 #include "tablemodel.h"
 #include "categorytable.h"
@@ -14,6 +15,10 @@
 #include "coffee.h"
 #include "alcohol.h"
 #include "chocolate.h"
+#include "baskettable.h"
+#include "categorycombobox.h"
+#include "mproductcombobox.h"
+#include "addinventory.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,8 +39,20 @@ int main(int argc, char *argv[])
     qmlRegisterType<Bread>("Bread", 0, 10, "Bread");
     qmlRegisterType<Coffee>("Coffee", 0, 11, "Coffee");
     qmlRegisterType<Alcohol>("Alcohol", 0, 12, "Alcohol");
+    qmlRegisterType<CategoryCombobox>("CategoryCombobox", 0, 13, "CategoryCombobox");
+    //qmlRegisterType<BasketTable>("BasketTable", 0, 13, "BasketTable");
 
     QQmlApplicationEngine engine;
+    BasketTable model_;
+    ManegeProductTable model2_;
+    MproductCombobox model3_;
+    AddInventory model4_;
+
+    engine.rootContext()->setContextProperty("myModel", &model_);
+    engine.rootContext()->setContextProperty("myModel2", &model2_);
+    engine.rootContext()->setContextProperty("myModel3", &model3_);
+    engine.rootContext()->setContextProperty("myModel4", &model4_);
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -44,7 +61,8 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
-    QObject *item=engine.rootObjects().first();
+    QObject *item=engine.rootObjects().value(0);
+
     ProductTable CategoryNameObject;
     QObject::connect(item, SIGNAL(qmlSignal(QString)), &CategoryNameObject, SLOT(cppSlot(QString)));
 

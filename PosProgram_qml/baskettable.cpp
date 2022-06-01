@@ -1,8 +1,13 @@
-#include "tablemodel.h"
+#include "baskettable.h"
 
-TableModel::TableModel(QObject *parent)
+#include <QQmlApplicationEngine>
+#include <QAbstractItemModel>
+
+BasketTable::BasketTable(QObject *parent)
     : QAbstractTableModel{parent}
 {
+    basketTable.clear();
+
     basketTable.append({"", "", "", ""});
     basketTable.append({"", "", "", ""});
     basketTable.append({"", "", "", ""});
@@ -10,17 +15,22 @@ TableModel::TableModel(QObject *parent)
     basketTable.append({"", "", "", ""});
     basketTable.append({"", "", "", ""});
     basketTable.append({"", "", "", ""});
+    basketTable.append({"", "", "", ""});
+    basketTable.append({"", "", "", ""});
+    basketTable.append({"", "", "", ""});
+    basketTable.append({"", "", "", ""});
+
 }
 
-int TableModel::rowCount(const QModelIndex &) const{
+int BasketTable::rowCount(const QModelIndex &) const{
     return basketTable.size();
 }
 
-int TableModel::columnCount(const QModelIndex &) const{
+int BasketTable::columnCount(const QModelIndex &) const{
     return basketTable.at(0).size();
 }
 
-QVariant TableModel::data(const QModelIndex &index, int role) const{
+QVariant BasketTable::data(const QModelIndex &index, int role) const{
     switch(role){
         case TableDataRole:
             return basketTable.at(index.row()).at(index.column());
@@ -37,9 +47,9 @@ QVariant TableModel::data(const QModelIndex &index, int role) const{
     return QVariant();
 }
 
-QHash<int, QByteArray> TableModel::roleNames() const{
+QHash<int, QByteArray> BasketTable::roleNames() const{
     QHash<int, QByteArray> roles;
-    roles[TableDataRole] = "tabledata";
+    roles[TableDataRole] = "baskettabledata";
     roles[HeadingRole] = "heading";
     return roles;
 }

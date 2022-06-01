@@ -9,5 +9,10 @@
         <file>coffeetable.qml</file>
         <file>alcoholtable.qml</file>
         <file>chocolatetable.qml</file>
+        <file>daychart.qml</file>
+        <file>mproducttable.qml</file>
+        <file>weekchart.qml</file>
+        <file>yearchart.qml</file>
+        <file>monthchart.qml</file>
     </qresource>
 </RCC>

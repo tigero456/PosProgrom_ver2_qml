@@ -9,6 +9,10 @@ import CategoryTable 0.2
 import ProductTable 0.3
 import SqlQueryModel 0.4
 import ManegeProductTable 0.5
+import CategoryCombobox 0.13
+//import BasketTable 0.13
+import Qt.labs.settings 1.0
+import Qt.labs.platform 1.0 as Platform
 
 Window {
     visible: true
@@ -17,9 +21,7 @@ Window {
     height: 800
     title: qsTr("편의점 POS")
 
-    SqlQueryModel{
-
-    }
+    SqlQueryModel{ }
 
     signal qmlSignal(msg: string)
 
@@ -298,7 +300,7 @@ Window {
     Window {
         id:managewindow
 
-        visible:false
+        //visible:false
         width: 600
         height: 500
         title: qsTr("관리자 모드")
@@ -359,6 +361,17 @@ Window {
                     width: 96
                     height: 47
                     color: "#0e8301"
+
+                    MouseArea{
+                        x:0
+                        y:0
+                        width: 96
+                        height: 47
+
+                        onClicked: {
+                            dibal.visible=true
+                        }
+                    }
 
                     Text {
                         id: text12345
@@ -459,29 +472,6 @@ Window {
                     font.pixelSize: 20
                 }
 
-                ComboBox {
-                    id: comboBox234
-                    x: 74
-                    y: 11
-                    width: 161
-                    height: 24
-
-                    model: ListModel{
-                        id:ll
-                        ListElement{text:"라면"}
-                        ListElement{text:"과자"}
-                        ListElement{text:"음료"}
-                        ListElement{text:"아이스크림"}
-                        ListElement{text:"빵"}
-                        ListElement{text:"커피"}
-                        ListElement{text:"주류"}
-                        ListElement{text:"초콜릿"}
-                        ListElement{text:"껌"}
-                        ListElement{text:"냉동식품"}
-                    }
-                    //comboBox234.currentText
-                }
-
                 Rectangle {
                     id: rectangle835473
                     x: 8
@@ -505,7 +495,7 @@ Window {
                                 rowSpacing: 1
                                 clip: true
 
-                                property var columnWidths: [90, 281, 89, 88]
+                                property var columnWidths: [70, 200, 90, 140, 50]
                                 columnWidthProvider: function (column) { return columnWidths[column] }
 
                                 property alias tableVerticalBar: tableVerticalBar23
@@ -518,11 +508,25 @@ Window {
                                 model: ManegeProductTable {}
 
                                 delegate: Rectangle{
+                                    id:tetet2
                                     border.color: "gray"
                                     border.width: 0.5
-                                    Text {
-                                        text: mproductTabletabledata
-                                        font.pointSize: 17
+
+                                    MouseArea{
+                                        x:0
+                                        y:0
+                                        width: 558
+                                        height: 30
+
+                                        Text {
+                                            text: mproductTabletabledata
+                                            font.pointSize: 17
+                                        }
+
+                                        onClicked: {
+                                            myModel2.mproductnameSlot(mproductTabletabledata)
+                                            tetet2.color= "lightblue"
+                                        }
                                     }
                                 }
                             }
@@ -534,14 +538,14 @@ Window {
                         id: rectangle113333
                         x: 5
                         y: 4
-                        width: 90
+                        width: 70
                         height: 45
                         color: "#ffffff"
                         border.width: 1
 
                         Text {
                             id: text73333
-                            x: 8
+                            x: 0
                             y: 8
                             text: qsTr("상품코드")
                             font.pixelSize: 18
@@ -551,9 +555,9 @@ Window {
 
                     Rectangle {
                         id: rectangle123333
-                        x: 95
+                        x: 76
                         y: 4
-                        width: 282
+                        width: 200
                         height: 45
                         color: "#ffffff"
                         border.width: 1
@@ -570,7 +574,7 @@ Window {
 
                     Rectangle {
                         id: rectangle133333
-                        x: 377
+                        x: 277
                         y: 4
                         width: 90
                         height: 45
@@ -586,12 +590,31 @@ Window {
                             font.bold: true
                         }
                     }
+                    Rectangle {
+                        id: rectangle1433333
+                        x: 368
+                        y: 4
+                        width: 140
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+
+                        Text {
+                            id: text1033332
+                            x: 8
+                            y: 8
+                            text: qsTr("유통기한")
+                            font.pixelSize: 18
+                            font.bold: true
+
+                        }
+                    }
 
                     Rectangle {
                         id: rectangle143333
-                        x: 467
+                        x: 509
                         y: 4
-                        width: 89
+                        width: 50
                         height: 45
                         color: "#ffffff"
                         border.width: 1
@@ -603,13 +626,14 @@ Window {
                             text: qsTr("수량")
                             font.pixelSize: 18
                             font.bold: true
+
                         }
                     }
                 }
 
                 Rectangle {
                     id: rectangle9354623
-                    x: 368
+                    x: 370
                     y: 11
                     width: 150
                     height: 24
@@ -621,9 +645,25 @@ Window {
                         y: 0
                         width: 150
                         height: 24
-                        text: qsTr("Text Edit")
+                        text: qsTr("검색")
+                        color: "gray"
                         font.pixelSize: 18
                         horizontalAlignment: Text.AlignRight
+
+
+                        MouseArea{
+                            id:texteditmouse
+                            x:0
+                            y:0
+                            width: 150
+                            height: 24
+
+                            onClicked: {
+                                textEdit24352.text=""
+                                textEdit24352.color="black"
+                                texteditmouse.visible=false
+                            }
+                        }
                     }
                 }
 
@@ -636,6 +676,27 @@ Window {
                     text: qsTr("검색")
                     font.pointSize: 14
                     font.bold: true
+
+                    onClicked: {
+                        myModel2.mproductsearchSlot(textEdit24352.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                        textEdit24352.text="검색"
+                        textEdit24352.color="gray"
+                        texteditmouse.visible=true
+                    }
+                }
+
+                Button {
+                    id: button62476357
+                    x: 74
+                    y: 11
+                    width: 163
+                    height: 24
+                    text: qsTr("")
+
+                    onClicked: {
+                        wwq.visible=true
+                    }
                 }
             }
 
@@ -650,9 +711,307 @@ Window {
                 font.pixelSize: 20
             }
 
+            Rectangle{
+                id:wwq
+                visible: false
+                x:82.5
+                y:135
+                width: 162
+                height: 290
+
+                Button{
+                    y:0
+                    width:162
+                    height: 29
+                    text: qsTr("라면")
+                    onClicked: {
+                        button62476357.text="라면"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    x: 0
+                    y:29
+                    width:162
+                    height: 29
+                    text: qsTr("과자")
+                    onClicked: {
+                        button62476357.text="과자"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:58
+                    width:162
+                    height: 29
+                    text: qsTr("음료")
+                    onClicked: {
+                        button62476357.text="음료"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:87
+                    width:162
+                    height: 29
+                    text: qsTr("아이스크림")
+                    onClicked: {
+                        button62476357.text="아이스크림"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:116
+                    width:162
+                    height: 29
+                    text: qsTr("빵")
+                    onClicked: {
+                        button62476357.text="빵"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:145
+                    width:162
+                    height: 29
+                    text: qsTr("커피")
+                    onClicked: {
+                        button62476357.text="커피"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:174
+                    width:162
+                    height: 29
+                    text: qsTr("주류")
+                    onClicked: {
+                        button62476357.text="주류"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:203
+                    width:162
+                    height: 29
+                    text: qsTr("초콜릿")
+                    onClicked: {
+                        button62476357.text="초콜릿"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:232
+                    width:162
+                    height: 29
+                    text: qsTr("껌")
+                    onClicked: {
+                        button62476357.text="껌"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:261
+                    width:162
+                    height: 29
+                    text: qsTr("냉동식품")
+                    onClicked: {
+                        button62476357.text="냉동식품"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+            }
 
         }
 
+        Frame{
+            id: dibal
+            visible: false
+            x:0
+            y:0
+            opacity: 1
+            implicitWidth: 300;
+            implicitHeight: 300;
+            anchors.fill: parent
+
+            Rectangle{
+                visible: true
+                x:-9
+                y:-9
+                opacity: 0.495
+                anchors.fill: parent
+                anchors.bottomMargin: -9
+                anchors.rightMargin: -9
+                anchors.topMargin: -9
+                anchors.leftMargin: -9
+            }
+
+            Rectangle{
+                x:(parent.width-width)/2
+                y:(parent.height-height)/2
+                border.width: 2
+                implicitWidth: 300;
+                implicitHeight: 350;
+
+                Button{
+                    x:156
+                    y:301
+                    width: 60
+                    height: 31
+                    Text{
+                        text: "발주"
+                        font.pointSize: 11
+                        anchors.centerIn: parent
+                    }
+                    onClicked: {
+                        myModel4.addiv(comboboxtext.text, combobox1text.text, mnum.text)
+                        myModel2.mproductcomboSlot(comboboxtext.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                        dibal.visible=false
+                    }
+                }
+
+                Button{
+                    x:222
+                    y:301
+                    width: 60
+                    height: 31
+                    Text{
+                        text: "닫기"
+                        font.pointSize: 11
+                        anchors.centerIn: parent
+                    }
+                    onClicked: {
+                        dibal.visible=false
+                    }
+                }
+
+                Label {
+                    id: label
+                    x: 25
+                    y: 72
+                    width: 78
+                    height: 31
+                    text: qsTr("카테고리")
+                    font.pointSize: 15
+                }
+
+                ComboBox {
+                    id: comboBox
+                    x: 126
+                    y: 76
+                    width: 148
+                    height: 27
+
+                    model: CategoryCombobox {}
+
+                    delegate: ItemDelegate{
+                        width:200
+                        text: categorycomboboxdata
+
+                        onClicked: {
+                            comboboxtext.text=categorycomboboxdata
+                            myModel3.mcategorynameSLOT(categorycomboboxdata)
+                        }
+                    }
+                }
+                Text{
+                    id:comboboxtext
+                    x: 126
+                    y: 76
+                    width: 148
+                    height: 27
+                    text: qsTr("")
+                    font.pointSize: 13
+                }
+
+                Label {
+                    id: label1
+                    x: 25
+                    y: 116
+                    width: 78
+                    height: 31
+                    text: qsTr("상품명")
+                    font.pointSize: 15
+                }
+
+                ComboBox {
+                    id: comboBox1
+                    x: 126
+                    y: 120
+                    width: 148
+                    height: 27
+
+                    model: myModel3
+
+                    delegate: ItemDelegate{
+                        width:200
+                        text: mproductcomboboxdata
+
+                        onClicked: {
+                            combobox1text.text=mproductcomboboxdata
+                        }
+
+                    }
+                }
+                Text{
+                    id:combobox1text
+                    x: 126
+                    y: 120
+                    width: 148
+                    height: 27
+                    text: qsTr("")
+                    font.pointSize: 13
+                }
+
+                Label {
+                    id: label2
+                    x: 25
+                    y: 160
+                    width: 78
+                    height: 31
+                    text: qsTr("수량")
+                    font.pointSize: 15
+                }
+
+                Rectangle{
+                    x:126
+                    y:164
+                    width: 148
+                    height: 27
+                    border.width: 1
+
+                    TextEdit{
+                        id:mnum
+                        x:0
+                        y:0
+                        width: 148
+                        height: 27
+                        font.pointSize: 13
+                    }
+                }
+            }
+        }
     }
 
     Window{
@@ -669,9 +1028,25 @@ Window {
             id: salecolumn
             anchors.fill: parent
 
+            Rectangle{
+                anchors.fill: parent
+                color: "#06a900"
+
+                Rectangle{
+                    x:0
+                    y:40
+                    width: 400
+                    height: 660
+                    color: "lightgray"
+                }
+
+            }
+
+
             Text {
                 id: saletext1
                 text: qsTr("상품목록")
+                color: "#ffffff"
                 font.pixelSize: 30
             }
 
@@ -681,12 +1056,13 @@ Window {
                 width: 390
                 height: 500
                 border.width: 1
+                color: "lightgreen"
 
                 Text {
                     id: saletext2
                     x: 10
                     y: 10
-                    text: qsTr("카테고리 선택해주세요")
+                    text: qsTr("")
                     font.pixelSize: 30
                 }
 
@@ -711,7 +1087,7 @@ Window {
                                 width: 380
                                 height: 435
                                 columnSpacing: 10
-                                rowSpacing: 80
+                                rowSpacing: 3
                                 clip: true
 
                                 property var columnWidths: [87.5, 87.5, 87.5, 87.5]
@@ -732,15 +1108,16 @@ Window {
 
                                     Button {
                                         width: 88
-                                        height: 115
+                                        height: 40
 
                                         Text {
+                                            id:tt
                                             text: producttabledata
                                             font.pointSize: 9
                                             anchors.bottom: parent.bottom
                                         }
                                         onClicked: {
-
+                                            myModel.productnameSlot(producttabledata)
                                         }
                                     }
                                 }
@@ -847,7 +1224,6 @@ Window {
                 }
             }
         }
-
     }
 
     Column {
@@ -985,15 +1361,28 @@ Window {
                         policy:ScrollBar.AlwaysOn
                     }
 
-                    model: TableModel {}
+                    //model: TableModel {}
+                    model: myModel
 
                     delegate: Rectangle{
+                        id:tetet
                         border.color: "gray"
                         border.width: 1
                         //color: (heading==true)?"lightgreen" : "white"
-                        Text {
-                            text: basketabledata
-                            font.pointSize: 17
+                        MouseArea{
+                            x:0
+                            y:0
+                            width: 496
+                            height: 30
+                            Text {
+                                //text: tabledata
+                                text: baskettabledata
+                                font.pointSize: 17
+                            }
+                            onClicked: {
+                                myModel.basketnameSlot(baskettabledata)
+                                tetet.color= "lightblue"
+                            }
                         }
                     }
                 }
@@ -1588,7 +1977,7 @@ Window {
                 }
 
                 Button {
-                    id: button26
+                    id: buttonNum2
                     x: 118
                     y: 236
                     width: 56
@@ -1596,10 +1985,11 @@ Window {
                     text: qsTr("2")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(2)
                 }
 
                 Button {
-                    id: button27
+                    id: buttonNum3
                     x: 175
                     y: 236
                     width: 56
@@ -1607,10 +1997,11 @@ Window {
                     text: qsTr("3")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(3)
                 }
 
                 Button {
-                    id: button28
+                    id: buttonNum0
                     x: 61
                     y: 295
                     width: 112
@@ -1618,10 +2009,11 @@ Window {
                     text: qsTr("0")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(0)
                 }
 
                 Button {
-                    id: button29
+                    id: buttonNum00
                     x: 175
                     y: 295
                     width: 56
@@ -1629,6 +2021,7 @@ Window {
                     text: qsTr("00")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(00)
                 }
 
                 Button {
@@ -1711,7 +2104,7 @@ Window {
                 }
 
                 Button {
-                    id: button20
+                    id: buttonNum6
                     x: 175
                     y: 178
                     width: 56
@@ -1719,6 +2112,7 @@ Window {
                     text: qsTr("6")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(6)
                 }
 
                 Button {
@@ -1762,7 +2156,7 @@ Window {
                 }
 
                 Button {
-                    id: button39
+                    id: buttonNum4
                     x: 61
                     y: 178
                     width: 56
@@ -1770,10 +2164,13 @@ Window {
                     text: qsTr("4")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  {
+                        myModel.basketnumSlot(4)
+                    }
                 }
 
                 Button {
-                    id: button40
+                    id: buttonNum5
                     x: 118
                     y: 178
                     width: 56
@@ -1781,10 +2178,11 @@ Window {
                     text: qsTr("5")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(5)
                 }
 
                 Button {
-                    id: button
+                    id: button2121212
                     x: 4
                     y: 4
                     width: 56
@@ -1864,6 +2262,9 @@ Window {
                     width: 112
                     height: 56
                     text: qsTr("수량")
+                    onClicked: {
+                        myModel.changeNum()
+                    }
                 }
 
                 Button {
@@ -1922,7 +2323,7 @@ Window {
                 }
 
                 Button {
-                    id: button19
+                    id: buttonNum9
                     x: 175
                     y: 120
                     width: 56
@@ -1930,6 +2331,7 @@ Window {
                     text: qsTr("9")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(9)
                 }
 
                 Button {
@@ -1971,7 +2373,7 @@ Window {
                 }
 
                 Button {
-                    id: button41
+                    id: buttonNum7
                     x: 61
                     y: 120
                     width: 56
@@ -1979,10 +2381,11 @@ Window {
                     text: qsTr("7")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(7)
                 }
 
                 Button {
-                    id: button42
+                    id: buttonNum8
                     x: 118
                     y: 120
                     width: 56
@@ -1990,10 +2393,11 @@ Window {
                     text: qsTr("8")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(8)
                 }
 
                 Button {
-                    id: button32
+                    id: buttonNum1
                     x: 61
                     y: 236
                     width: 56
@@ -2001,6 +2405,7 @@ Window {
                     text: qsTr("1")
                     font.pointSize: 17
                     font.bold: true
+                    onClicked:  myModel.basketnumSlot(1)
                 }
 
                 Button {
@@ -2037,83 +2442,101 @@ Window {
             anchors.topMargin: -9
             anchors.leftMargin: -9
         }
-        Rectangle{
-            x:(parent.width-width)/2
-            y:(parent.height-height)/2
-            border.width: 2
-            implicitWidth: 300;
-            implicitHeight: 350;
-            //title: "통계 그래프"
-            //modal: true;
-            //standardButtons: Dialog.Ok | Dialog.Cancel
-            //standardButtons: Dialog.Cancel
+        StackView {
+            id: stackView53
+            x: 10
+            y: 159
+            width: 469
+            height: 470
 
-            Button{
-                x:54
-                y:40
-                width: 193
-                height: 41
-                Text{
-                    text: "일별 통계"
-                    font.pointSize: 11
-                    anchors.centerIn: parent
-                }
-                onClicked: {
+            initialItem: Item{
+                Rectangle{
+                    x:(parent.width-width)/2
+                    y:(parent.height-height)/2
+                    border.width: 2
+                    implicitWidth: 300;
+                    implicitHeight: 350;
 
+                    Button{
+                        x:54
+                        y:40
+                        width: 193
+                        height: 41
+                        Text{
+                            text: "일별 통계"
+                            font.pointSize: 11
+                            anchors.centerIn: parent
+                        }
+                        onClicked: {
+                            stackView53.push(Qt.resolvedUrl("qrc:/daychart.qml"))
+                        }
+                    }
+                    Button{
+                        x:54
+                        y:106
+                        width: 193
+                        height: 39
+                        Text{
+                            text: "주별 통계"
+                            font.pointSize: 11
+                            anchors.centerIn: parent
+                        }
+                        onClicked: {
+                            stackView53.push(Qt.resolvedUrl("qrc:/weekchart.qml"))
+                        }
+                    }
+                    Button{
+                        x:53
+                        y:167
+                        width: 194
+                        height: 39
+                        Text{
+                            text: "월별 통계"
+                            font.pointSize: 11
+                            anchors.centerIn: parent
+                        }
+                        onClicked: {
+                            stackView53.push(Qt.resolvedUrl("qrc:/monthchart.qml"))
+                        }
+                    }
+                    Button{
+                        x:53
+                        y:222
+                        width: 194
+                        height: 39
+                        Text{
+                            text: "연도별 통계"
+                            font.pointSize: 11
+                            anchors.centerIn: parent
+                        }
+                        onClicked: {
+                            stackView53.push(Qt.resolvedUrl("qrc:/yearchart.qml"))
+                        }
+                    }
+                    Button{
+                        x:222
+                        y:301
+                        width: 60
+                        height: 31
+                        Text{
+                            text: "닫기"
+                            font.pointSize: 11
+                            anchors.centerIn: parent
+                        }
+                        onClicked: {
+                            di.visible=false
+                        }
+                    }
                 }
             }
-
-            Button{
-                x:54
-                y:106
-                width: 193
-                height: 39
-                Text{
-                    text: "주별 통계"
-                    font.pointSize: 11
-                    anchors.centerIn: parent
-                }
-            }
-            Button{
-                x:53
-                y:167
-                width: 194
-                height: 39
-                Text{
-                    text: "월별 통계"
-                    font.pointSize: 11
-                    anchors.centerIn: parent
-                }
-            }
-            Button{
-                x:53
-                y:222
-                width: 194
-                height: 39
-                Text{
-                    text: "연도별 통계"
-                    font.pointSize: 11
-                    anchors.centerIn: parent
-                }
-            }
-            Button{
-                x:222
-                y:301
-                width: 60
-                height: 31
-                Text{
-                    text: "닫기"
-                    font.pointSize: 11
-                    anchors.centerIn: parent
-                }
-                onClicked: {
-                    di.visible=false
-                }
-            }
-            //onAccepted: console.log("Ok clicked")
-            //onRejected: console.log("Cancel clicked")
         }
     }
 }
 
 
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.75}
+}
+##^##*/

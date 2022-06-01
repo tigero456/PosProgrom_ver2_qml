@@ -5,14 +5,14 @@ import QtQuick.Controls.Fusion
 import RaMen 0.6
 
 Item{
-        TableView {
+    TableView {
         id: ramentableview
         x: 5
         y: 5
         width: 380
         height: 435
         columnSpacing: 10
-        rowSpacing: 80
+        rowSpacing: 3
         clip: true
 
         property var columnWidths: [87.5, 87.5, 87.5, 87.5]
@@ -33,7 +33,7 @@ Item{
 
                 Button {
                 width: 88
-                height: 115
+                height: 40
 
                     Text {
                     text: ramentabledata
@@ -41,8 +41,7 @@ Item{
                     anchors.bottom: parent.bottom
                 }
                     onClicked: {
-
-                    //saletext2.text = categorytabledata
+                        myModel.productnameSlot(ramentabledata)
                 }
             }
         }

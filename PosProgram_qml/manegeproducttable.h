@@ -24,6 +24,50 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
+    Q_INVOKABLE void mproductnameSlot(QString &name){
+        qDebug()<<name;
+    }
+
+    Q_INVOKABLE void mproductcomboSlot(QString &comboname){
+        this->beginResetModel();
+        qDebug()<<comboname;
+        qDebug()<<mproductTable.value(0);
+        mproductTable.clear();
+        qDebug()<<mproductTable;
+        QSqlQuery query;
+        QString c_code;
+
+        query.prepare("select cartegory_code from cartegory where cartegory_name = '"+comboname+"'");
+        query.exec();
+        query.next();
+        c_code = query.value(0).toString();
+
+        query.prepare("select p.product_code as '상품코드', p.product_name as '상품명', p.product_sale as '가격', i.inventory_life as '유통기한', i.inventory_number as '수량' from product p join inventory i on p.product_code = i.product_code where cartegory_code = '"+c_code+"' order by p.cartegory_code, p.product_code"); //쿼리문 저장-분류에 맞는 컬럼값들 가져오기
+        query.exec();
+
+        while(query.next()){
+            mproductTable.append({query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString()});
+        }
+        qDebug()<<mproductTable;
+        this->endResetModel();
+    }
+
+    Q_INVOKABLE void mproductsearchSlot(QString &searchname){
+        this->beginResetModel();
+        qDebug()<<searchname;
+        mproductTable.clear();
+        QSqlQuery query;
+
+        query.prepare("select p.product_code as '상품코드', p.product_name as '상품명', p.product_sale as '가격', i.inventory_life as '유통기한', i.inventory_number as '수량' from product p join inventory i on p.product_code = i.product_code where product_name like '"+searchname+"%'");
+        query.exec();
+
+        while(query.next()){
+            mproductTable.append({query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString()});
+        }
+        qDebug()<<mproductTable;
+        this->endResetModel();
+    }
+
 signals:
 
 public slots:
@@ -31,6 +75,7 @@ private:
     QVector<QVector<QString>> mproductTable;
     //QSqlTableModel  *model;
     SqlQueryModel *db;
+    QString mp_name;
 
 };
 

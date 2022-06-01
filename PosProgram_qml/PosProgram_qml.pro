@@ -5,14 +5,18 @@ QT += quick sql charts
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        addinventory.cpp \
         alcohol.cpp \
+        baskettable.cpp \
         bread.cpp \
+        categorycombobox.cpp \
         categorytable.cpp \
         chocolate.cpp \
         coffee.cpp \
         icecream.cpp \
         main.cpp \
         manegeproducttable.cpp \
+        mproductcombobox.cpp \
         producttable.cpp \
         ramen.cpp \
         snack.cpp \
@@ -34,13 +38,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    addinventory.h \
     alcohol.h \
+    baskettable.h \
     bread.h \
+    categorycombobox.h \
     categorytable.h \
     chocolate.h \
     coffee.h \
     icecream.h \
     manegeproducttable.h \
+    mproductcombobox.h \
     producttable.h \
     ramen.h \
     snack.h \
