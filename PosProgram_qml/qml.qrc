@@ -14,5 +14,7 @@
         <file>weekchart.qml</file>
         <file>yearchart.qml</file>
         <file>monthchart.qml</file>
+        <file>product.qml</file>
+        <file>trash.qml</file>
     </qresource>
 </RCC>

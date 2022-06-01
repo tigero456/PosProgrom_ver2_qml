@@ -297,723 +297,6 @@ Window {
         }
     }
 
-    Window {
-        id:managewindow
-
-        //visible:false
-        width: 600
-        height: 500
-        title: qsTr("관리자 모드")
-
-        Rectangle {
-            id: rectangle542254
-            color: "#ffffff"
-            anchors.fill: parent
-
-            Rectangle {
-                id: rectangle323462
-                x: 0
-                y: 0
-                width: 600
-                height: 76
-                color: "#12ca00"
-                radius: 10
-            }
-
-            Rectangle {
-                id: rectangle12436
-                x: 0
-                y: 0
-                width: 600
-                height: 47
-                color: "#12ca00"
-                radius: 0
-            }
-
-
-            Rectangle {
-                id: rectangle224366
-                x: 0
-                y: 13
-                width: 600
-                height: 63
-                color: "#0c8900"
-                radius: 10
-                border.color: "#c6ffcb"
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.63927
-                        color: "#0e8301"
-                    }
-
-                    GradientStop {
-                        position: 1
-                        color: "#17d916"
-                    }
-
-                    orientation: Gradient.Horizontal
-                }
-
-                Rectangle {
-                    id: rectangle43452
-                    x: 8
-                    y: 8
-                    width: 96
-                    height: 47
-                    color: "#0e8301"
-
-                    MouseArea{
-                        x:0
-                        y:0
-                        width: 96
-                        height: 47
-
-                        onClicked: {
-                            dibal.visible=true
-                        }
-                    }
-
-                    Text {
-                        id: text12345
-                        width: 49
-                        height: 30
-                        color: "#ffffff"
-                        text: qsTr("발주")
-                        font.pixelSize: 25
-                        font.bold: true
-                        anchors.centerIn: parent
-                    }
-                }
-
-                Rectangle {
-                    id: rectangle56272
-                    x: 130
-                    y: 8
-                    width: 96
-                    height: 47
-                    color: "#0e8301"
-
-                    Text {
-                        id: text223462
-                        width: 49
-                        height: 30
-                        color: "#ffffff"
-                        text: qsTr("재고")
-                        font.pixelSize: 25
-                        font.bold: true
-                        anchors.centerIn: parent
-                    }
-                }
-
-                Rectangle {
-                    id: rectangle6345326
-                    x: 254
-                    y: 6
-                    width: 96
-                    height: 47
-                    color: "#0e8301"
-                    Text {
-                        id: text6584384
-                        width: 97
-                        height: 30
-                        color: "#ffffff"
-                        text: qsTr("판매화면")
-                        font.pixelSize: 25
-                        anchors.centerIn: parent
-                        font.bold: true
-                    }
-                    MouseArea{
-                        x:0
-                        y:0
-                        width: 96
-                        height: 47
-                        onClicked: {
-                            managewindow.close()
-                            wwwindow.show()
-                        }
-                    }
-                }
-            }
-
-            Rectangle {
-                id: rectangle75678
-                x: 8
-                y: 100
-                width: 584
-                height: 392
-                color: "#10b800"
-                radius: 15
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0
-                        color: "#70ca1d"
-                    }
-
-                    GradientStop {
-                        position: 0.21461
-                        color: "#ffffff"
-                    }
-
-                    orientation: Gradient.Vertical
-                    GradientStop {
-                        position: 0
-                        color: "#70ca1d"
-                    }
-                }
-
-                Text {
-                    id: text546543
-                    x: 8
-                    y: 8
-                    width: 52
-                    height: 27
-                    color: "#002a00"
-                    text: qsTr("분류")
-                    font.pixelSize: 20
-                }
-
-                Rectangle {
-                    id: rectangle835473
-                    x: 8
-                    y: 46
-                    width: 568
-                    height: 338
-                    color: "#ffffff"
-
-                    StackView{
-                        id: stackview3
-                        anchors.fill: parent
-
-                        initialItem: Item{
-                            TableView {
-                                id: producttableview2
-                                x: 5
-                                y: 50
-                                width: 558
-                                height: 289
-                                columnSpacing: 1
-                                rowSpacing: 1
-                                clip: true
-
-                                property var columnWidths: [70, 200, 90, 140, 50]
-                                columnWidthProvider: function (column) { return columnWidths[column] }
-
-                                property alias tableVerticalBar: tableVerticalBar23
-
-                                ScrollBar.vertical: ScrollBar {
-                                    id: tableVerticalBar23
-                                    policy:ScrollBar.AlwaysOn
-                                }
-
-                                model: ManegeProductTable {}
-
-                                delegate: Rectangle{
-                                    id:tetet2
-                                    border.color: "gray"
-                                    border.width: 0.5
-
-                                    MouseArea{
-                                        x:0
-                                        y:0
-                                        width: 558
-                                        height: 30
-
-                                        Text {
-                                            text: mproductTabletabledata
-                                            font.pointSize: 17
-                                        }
-
-                                        onClicked: {
-                                            myModel2.mproductnameSlot(mproductTabletabledata)
-                                            tetet2.color= "lightblue"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-
-                    Rectangle {
-                        id: rectangle113333
-                        x: 5
-                        y: 4
-                        width: 70
-                        height: 45
-                        color: "#ffffff"
-                        border.width: 1
-
-                        Text {
-                            id: text73333
-                            x: 0
-                            y: 8
-                            text: qsTr("상품코드")
-                            font.pixelSize: 18
-                            font.bold: true
-                        }
-                    }
-
-                    Rectangle {
-                        id: rectangle123333
-                        x: 76
-                        y: 4
-                        width: 200
-                        height: 45
-                        color: "#ffffff"
-                        border.width: 1
-
-                        Text {
-                            id: text8887
-                            x: 8
-                            y: 8
-                            text: qsTr("상품명")
-                            font.pixelSize: 18
-                            font.bold: true
-                        }
-                    }
-
-                    Rectangle {
-                        id: rectangle133333
-                        x: 277
-                        y: 4
-                        width: 90
-                        height: 45
-                        color: "#ffffff"
-                        border.width: 1
-
-                        Text {
-                            id: text93333
-                            x: 8
-                            y: 8
-                            text: qsTr("상품가격")
-                            font.pixelSize: 18
-                            font.bold: true
-                        }
-                    }
-                    Rectangle {
-                        id: rectangle1433333
-                        x: 368
-                        y: 4
-                        width: 140
-                        height: 45
-                        color: "#ffffff"
-                        border.width: 1
-
-                        Text {
-                            id: text1033332
-                            x: 8
-                            y: 8
-                            text: qsTr("유통기한")
-                            font.pixelSize: 18
-                            font.bold: true
-
-                        }
-                    }
-
-                    Rectangle {
-                        id: rectangle143333
-                        x: 509
-                        y: 4
-                        width: 50
-                        height: 45
-                        color: "#ffffff"
-                        border.width: 1
-
-                        Text {
-                            id: text103333
-                            x: 8
-                            y: 8
-                            text: qsTr("수량")
-                            font.pixelSize: 18
-                            font.bold: true
-
-                        }
-                    }
-                }
-
-                Rectangle {
-                    id: rectangle9354623
-                    x: 370
-                    y: 11
-                    width: 150
-                    height: 24
-                    color: "#ffffff"
-
-                    TextEdit {
-                        id: textEdit24352
-                        x: 0
-                        y: 0
-                        width: 150
-                        height: 24
-                        text: qsTr("검색")
-                        color: "gray"
-                        font.pixelSize: 18
-                        horizontalAlignment: Text.AlignRight
-
-
-                        MouseArea{
-                            id:texteditmouse
-                            x:0
-                            y:0
-                            width: 150
-                            height: 24
-
-                            onClicked: {
-                                textEdit24352.text=""
-                                textEdit24352.color="black"
-                                texteditmouse.visible=false
-                            }
-                        }
-                    }
-                }
-
-                Button {
-                    id: button23456
-                    x: 524
-                    y: 8
-                    width: 46
-                    height: 32
-                    text: qsTr("검색")
-                    font.pointSize: 14
-                    font.bold: true
-
-                    onClicked: {
-                        myModel2.mproductsearchSlot(textEdit24352.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                        textEdit24352.text="검색"
-                        textEdit24352.color="gray"
-                        texteditmouse.visible=true
-                    }
-                }
-
-                Button {
-                    id: button62476357
-                    x: 74
-                    y: 11
-                    width: 163
-                    height: 24
-                    text: qsTr("")
-
-                    onClicked: {
-                        wwq.visible=true
-                    }
-                }
-            }
-
-            Text {
-                id: text434753
-                x: 13
-                y: 74
-                width: 72
-                height: 26
-                color: "#ff7a35"
-                text: qsTr("재고")
-                font.pixelSize: 20
-            }
-
-            Rectangle{
-                id:wwq
-                visible: false
-                x:82.5
-                y:135
-                width: 162
-                height: 290
-
-                Button{
-                    y:0
-                    width:162
-                    height: 29
-                    text: qsTr("라면")
-                    onClicked: {
-                        button62476357.text="라면"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    x: 0
-                    y:29
-                    width:162
-                    height: 29
-                    text: qsTr("과자")
-                    onClicked: {
-                        button62476357.text="과자"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    y:58
-                    width:162
-                    height: 29
-                    text: qsTr("음료")
-                    onClicked: {
-                        button62476357.text="음료"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    y:87
-                    width:162
-                    height: 29
-                    text: qsTr("아이스크림")
-                    onClicked: {
-                        button62476357.text="아이스크림"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    y:116
-                    width:162
-                    height: 29
-                    text: qsTr("빵")
-                    onClicked: {
-                        button62476357.text="빵"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    y:145
-                    width:162
-                    height: 29
-                    text: qsTr("커피")
-                    onClicked: {
-                        button62476357.text="커피"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    y:174
-                    width:162
-                    height: 29
-                    text: qsTr("주류")
-                    onClicked: {
-                        button62476357.text="주류"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    y:203
-                    width:162
-                    height: 29
-                    text: qsTr("초콜릿")
-                    onClicked: {
-                        button62476357.text="초콜릿"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    y:232
-                    width:162
-                    height: 29
-                    text: qsTr("껌")
-                    onClicked: {
-                        button62476357.text="껌"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-                Button{
-                    y:261
-                    width:162
-                    height: 29
-                    text: qsTr("냉동식품")
-                    onClicked: {
-                        button62476357.text="냉동식품"
-                        wwq.visible=false
-                        myModel2.mproductcomboSlot(button62476357.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                    }
-                }
-            }
-
-        }
-
-        Frame{
-            id: dibal
-            visible: false
-            x:0
-            y:0
-            opacity: 1
-            implicitWidth: 300;
-            implicitHeight: 300;
-            anchors.fill: parent
-
-            Rectangle{
-                visible: true
-                x:-9
-                y:-9
-                opacity: 0.495
-                anchors.fill: parent
-                anchors.bottomMargin: -9
-                anchors.rightMargin: -9
-                anchors.topMargin: -9
-                anchors.leftMargin: -9
-            }
-
-            Rectangle{
-                x:(parent.width-width)/2
-                y:(parent.height-height)/2
-                border.width: 2
-                implicitWidth: 300;
-                implicitHeight: 350;
-
-                Button{
-                    x:156
-                    y:301
-                    width: 60
-                    height: 31
-                    Text{
-                        text: "발주"
-                        font.pointSize: 11
-                        anchors.centerIn: parent
-                    }
-                    onClicked: {
-                        myModel4.addiv(comboboxtext.text, combobox1text.text, mnum.text)
-                        myModel2.mproductcomboSlot(comboboxtext.text)
-                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
-                        dibal.visible=false
-                    }
-                }
-
-                Button{
-                    x:222
-                    y:301
-                    width: 60
-                    height: 31
-                    Text{
-                        text: "닫기"
-                        font.pointSize: 11
-                        anchors.centerIn: parent
-                    }
-                    onClicked: {
-                        dibal.visible=false
-                    }
-                }
-
-                Label {
-                    id: label
-                    x: 25
-                    y: 72
-                    width: 78
-                    height: 31
-                    text: qsTr("카테고리")
-                    font.pointSize: 15
-                }
-
-                ComboBox {
-                    id: comboBox
-                    x: 126
-                    y: 76
-                    width: 148
-                    height: 27
-
-                    model: CategoryCombobox {}
-
-                    delegate: ItemDelegate{
-                        width:200
-                        text: categorycomboboxdata
-
-                        onClicked: {
-                            comboboxtext.text=categorycomboboxdata
-                            myModel3.mcategorynameSLOT(categorycomboboxdata)
-                        }
-                    }
-                }
-                Text{
-                    id:comboboxtext
-                    x: 126
-                    y: 76
-                    width: 148
-                    height: 27
-                    text: qsTr("")
-                    font.pointSize: 13
-                }
-
-                Label {
-                    id: label1
-                    x: 25
-                    y: 116
-                    width: 78
-                    height: 31
-                    text: qsTr("상품명")
-                    font.pointSize: 15
-                }
-
-                ComboBox {
-                    id: comboBox1
-                    x: 126
-                    y: 120
-                    width: 148
-                    height: 27
-
-                    model: myModel3
-
-                    delegate: ItemDelegate{
-                        width:200
-                        text: mproductcomboboxdata
-
-                        onClicked: {
-                            combobox1text.text=mproductcomboboxdata
-                        }
-
-                    }
-                }
-                Text{
-                    id:combobox1text
-                    x: 126
-                    y: 120
-                    width: 148
-                    height: 27
-                    text: qsTr("")
-                    font.pointSize: 13
-                }
-
-                Label {
-                    id: label2
-                    x: 25
-                    y: 160
-                    width: 78
-                    height: 31
-                    text: qsTr("수량")
-                    font.pointSize: 15
-                }
-
-                Rectangle{
-                    x:126
-                    y:164
-                    width: 148
-                    height: 27
-                    border.width: 1
-
-                    TextEdit{
-                        id:mnum
-                        x:0
-                        y:0
-                        width: 148
-                        height: 27
-                        font.pointSize: 13
-                    }
-                }
-            }
-        }
-    }
-
     Window{
         visible:false
 
@@ -1341,47 +624,55 @@ Window {
                     font.pixelSize: 18
                 }
 
-                TableView {
-                    id: baskettableview
+                StackView{
+                    id: stackview4
                     x: 3
                     y: 92
                     width: 496
                     height: 256
-                    columnSpacing: 0
-                    rowSpacing: 0
-                    clip: true
 
-                    property var columnWidths: [53, 299, 79, 63]
-                    columnWidthProvider: function (column) { return columnWidths[column] }
-
-                    property alias tableVerticalBar: tableVerticalBar
-
-                    ScrollBar.vertical: ScrollBar {
-                        id: tableVerticalBar
-                        policy:ScrollBar.AlwaysOn
-                    }
-
-                    //model: TableModel {}
-                    model: myModel
-
-                    delegate: Rectangle{
-                        id:tetet
-                        border.color: "gray"
-                        border.width: 1
-                        //color: (heading==true)?"lightgreen" : "white"
-                        MouseArea{
-                            x:0
-                            y:0
+                    initialItem: Item{
+                        TableView {
+                            id: baskettableview
                             width: 496
-                            height: 30
-                            Text {
-                                //text: tabledata
-                                text: baskettabledata
-                                font.pointSize: 17
+                            height: 256
+                            columnSpacing: 0
+                            rowSpacing: 0
+                            clip: true
+
+                            property var columnWidths: [53, 299, 79, 63]
+                            columnWidthProvider: function (column) { return columnWidths[column] }
+
+                            property alias tableVerticalBar: tableVerticalBar
+
+                            ScrollBar.vertical: ScrollBar {
+                                id: tableVerticalBar
+                                policy:ScrollBar.AlwaysOn
                             }
-                            onClicked: {
-                                myModel.basketnameSlot(baskettabledata)
-                                tetet.color= "lightblue"
+
+                            //model: TableModel {}
+                            model: myModel
+
+                            delegate: Rectangle{
+                                id:tetet
+                                border.color: "gray"
+                                border.width: 1
+                                //color: (heading==true)?"lightgreen" : "white"
+                                MouseArea{
+                                    x:0
+                                    y:0
+                                    width: 496
+                                    height: 30
+                                    Text {
+                                        //text: tabledata
+                                        text: baskettabledata
+                                        font.pointSize: 17
+                                    }
+                                    onClicked: {
+                                        myModel.basketnameSlot(baskettabledata)
+                                        tetet.color= "lightblue"
+                                    }
+                                }
                             }
                         }
                     }
@@ -2370,6 +1661,9 @@ Window {
                     height: 56
                     text: qsTr("폐기")
 
+                    onClicked: {
+                        stackview4.push(Qt.resolvedUrl("qrc:/trash.qml"))
+                    }
                 }
 
                 Button {
@@ -2531,12 +1825,1006 @@ Window {
             }
         }
     }
+
+    Window {
+        id:managewindow
+
+        //visible:false
+        width: 600
+        height: 500
+        title: qsTr("관리자 모드")
+
+        Rectangle {
+            id: rectangle542254
+            color: "#ffffff"
+            anchors.fill: parent
+
+            Rectangle {
+                id: rectangle323462
+                x: 0
+                y: 0
+                width: 600
+                height: 76
+                color: "#12ca00"
+                radius: 10
+            }
+
+            Rectangle {
+                id: rectangle12436
+                x: 0
+                y: 0
+                width: 600
+                height: 47
+                color: "#12ca00"
+                radius: 0
+            }
+
+
+            Rectangle {
+                id: rectangle224366
+                x: 0
+                y: 13
+                width: 600
+                height: 63
+                color: "#0c8900"
+                radius: 10
+                border.color: "#c6ffcb"
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.63927
+                        color: "#0e8301"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#17d916"
+                    }
+
+                    orientation: Gradient.Horizontal
+                }
+
+                Rectangle {
+                    id: rectangle43452
+                    x: 8
+                    y: 8
+                    width: 80
+                    height: 47
+                    color: "#0e8301"
+
+                    MouseArea{
+                        x:0
+                        y:0
+                        width: 80
+                        height: 47
+
+                        onClicked: {
+                            dibal.visible=true
+                        }
+                    }
+
+                    Text {
+                        id: text12345
+                        width: 49
+                        height: 30
+                        color: "#ffffff"
+                        text: qsTr("발주")
+                        font.pixelSize: 25
+                        anchors.verticalCenterOffset: 0
+                        anchors.horizontalCenterOffset: 1
+                        font.bold: true
+                        anchors.centerIn: parent
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle56272
+                    x: 174
+                    y: 8
+                    width: 80
+                    height: 47
+                    color: "#0e8301"
+
+                    Text {
+                        id: text223462
+                        width: 49
+                        height: 30
+                        color: "#ffffff"
+                        text: qsTr("상품")
+                        font.pixelSize: 25
+                        font.bold: true
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea {
+                        x: 0
+                        y: 0
+                        width: 80
+                        height: 47
+
+                        onClicked: {
+                            rectangle141.visible=false
+                            rectangle142.visible=true
+                            button62476358.visible=true
+                            button62476357.visible=false
+                            myModel5.productSlot()
+                            stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle6345326
+                    x: 267
+                    y: 8
+                    width: 96
+                    height: 47
+                    color: "#0e8301"
+                    Text {
+                        id: text6584384
+                        width: 97
+                        height: 30
+                        color: "#ffffff"
+                        text: qsTr("판매화면")
+                        font.pixelSize: 25
+                        anchors.centerIn: parent
+                        font.bold: true
+                    }
+                    MouseArea{
+                        x:0
+                        y:0
+                        width: 96
+                        height: 47
+                        onClicked: {
+                            managewindow.close()
+                            wwwindow.show()
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle56273
+                    x: 91
+                    y: 8
+                    width: 80
+                    height: 47
+                    color: "#0e8301"
+                    Text {
+                        id: text223463
+                        width: 49
+                        height: 30
+                        color: "#ffffff"
+                        text: qsTr("재고")
+                        font.pixelSize: 25
+                        anchors.centerIn: parent
+                        font.bold: true
+                    }
+
+                    MouseArea {
+                        x: 0
+                        y: 0
+                        width: 80
+                        height: 47
+
+                        onClicked: {
+                            rectangle141.visible=true
+                            rectangle142.visible=false
+                            button62476358.visible=false
+                            button62476357.visible=true
+                            myModel2.ivSlot()
+                            stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                        }
+                    }
+                }
+            }
+
+            Rectangle {
+                id: rectangle75678
+                x: 8
+                y: 100
+                width: 584
+                height: 392
+                color: "#10b800"
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0
+                        color: "#70ca1d"
+                    }
+
+                    GradientStop {
+                        position: 0.21461
+                        color: "#ffffff"
+                    }
+
+                    orientation: Gradient.Vertical
+                    GradientStop {
+                        position: 0
+                        color: "#70ca1d"
+                    }
+                }
+
+                Text {
+                    id: text546543
+                    x: 8
+                    y: 8
+                    width: 52
+                    height: 27
+                    color: "#002a00"
+                    text: qsTr("분류")
+                    font.pixelSize: 20
+                }
+
+                Rectangle {
+                    id: rectangle835473
+                    x: 8
+                    y: 46
+                    width: 568
+                    height: 338
+                    color: "#ffffff"
+
+                    StackView{
+                        id: stackview3
+                        anchors.fill: parent
+
+                        initialItem: Item{
+                            TableView {
+                                id: producttableview2
+                                x: 5
+                                y: 50
+                                width: 558
+                                height: 289
+                                columnSpacing: 1
+                                rowSpacing: 1
+                                clip: true
+
+                                property var columnWidths: [70, 200, 90, 140, 50]
+                                columnWidthProvider: function (column) { return columnWidths[column] }
+
+                                property alias tableVerticalBar: tableVerticalBar23
+
+                                ScrollBar.vertical: ScrollBar {
+                                    id: tableVerticalBar23
+                                    policy:ScrollBar.AlwaysOn
+                                }
+
+                                model: ManegeProductTable {}
+
+                                delegate: Rectangle{
+                                    id:tetet2
+                                    border.color: "gray"
+                                    border.width: 0.5
+
+                                    MouseArea{
+                                        x:0
+                                        y:0
+                                        width: 558
+                                        height: 30
+
+                                        Text {
+                                            text: mproductTabletabledata
+                                            font.pointSize: 17
+                                        }
+
+                                        onClicked: {
+                                            myModel2.mproductnameSlot(mproductTabletabledata)
+                                            tetet2.color= "lightblue"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                Rectangle {
+                    id: rectangle9354623
+                    x: 370
+                    y: 11
+                    width: 150
+                    height: 24
+                    color: "#ffffff"
+
+                    TextEdit {
+                        id: textEdit24352
+                        x: 0
+                        y: 0
+                        width: 150
+                        height: 24
+                        text: qsTr("검색")
+                        color: "gray"
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignRight
+
+
+                        MouseArea{
+                            id:texteditmouse
+                            x:0
+                            y:0
+                            width: 150
+                            height: 24
+
+                            onClicked: {
+                                textEdit24352.text=""
+                                textEdit24352.color="black"
+                                texteditmouse.visible=false
+                            }
+                        }
+                    }
+                }
+
+                Button {
+                    id: button23456
+                    x: 524
+                    y: 8
+                    width: 46
+                    height: 32
+                    text: qsTr("검색")
+                    font.pointSize: 14
+                    font.bold: true
+
+                    onClicked: {
+                        myModel2.mproductsearchSlot(textEdit24352.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                        textEdit24352.text="검색"
+                        textEdit24352.color="gray"
+                        texteditmouse.visible=true
+                    }
+                }
+
+                Button {
+                    id: button62476357
+                    x: 74
+                    y: 11
+                    width: 163
+                    height: 24
+                    text: qsTr("")
+
+                    onClicked: {
+                        wwq.visible=true
+                    }
+                }
+                Button {
+                    id: button62476358
+                    visible: false
+                    x: 74
+                    y: 11
+                    width: 163
+                    height: 24
+                    text: qsTr("")
+
+                    onClicked: {
+                        wwq2.visible=true
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle141
+                    x: 13
+                    y: 50
+                    width: 554
+                    height: 45
+                    color: "#ffffff"
+
+                    Rectangle {
+                        id: rectangle113333
+                        x: 0
+                        y: 0
+                        width: 70
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text73333
+                            x: 0
+                            y: 8
+                            text: qsTr("상품코드")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle123333
+                        x: 71
+                        y: 0
+                        width: 200
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text8887
+                            x: 8
+                            y: 8
+                            text: qsTr("상품명")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle133333
+                        x: 272
+                        y: 0
+                        width: 90
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text93333
+                            x: 8
+                            y: 8
+                            text: qsTr("상품가격")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle1433333
+                        x: 363
+                        y: 0
+                        width: 140
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text1033332
+                            x: 8
+                            y: 8
+                            text: qsTr("유통기한")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle143333
+                        x: 504
+                        y: 0
+                        width: 50
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text103333
+                            x: 8
+                            y: 8
+                            text: qsTr("수량")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle142
+                    visible: false
+                    x: 13
+                    y: 50
+                    width: 554
+                    height: 45
+                    color: "#ffffff"
+                    Rectangle {
+                        id: rectangle113334
+                        x: 0
+                        y: 0
+                        width: 80
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text73334
+                            x: 0
+                            y: 8
+                            text: qsTr("상품코드")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle123334
+                        x: 81
+                        y: 0
+                        width: 277
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text8888
+                            x: 8
+                            y: 8
+                            text: qsTr("상품명")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle133334
+                        x: 359
+                        y: 0
+                        width: 100
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text93334
+                            x: 8
+                            y: 8
+                            text: qsTr("상품가격")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle1433334
+                        x: 460
+                        y: 0
+                        width: 95
+                        height: 45
+                        color: "#ffffff"
+                        border.width: 1
+                        Text {
+                            id: text1033333
+                            x: 8
+                            y: 8
+                            text: qsTr("카테고리")
+                            font.pixelSize: 18
+                            font.bold: true
+                        }
+                    }
+                }
+            }
+
+            Text {
+                id: text434753
+                x: 13
+                y: 74
+                width: 72
+                height: 26
+                color: "#ff7a35"
+                text: qsTr("재고")
+                font.pixelSize: 20
+            }
+
+            Rectangle{
+                id:wwq
+                visible: false
+                x:82.5
+                y:135
+                width: 162
+                height: 290
+
+                Button{
+                    y:0
+                    width:162
+                    height: 29
+                    text: qsTr("라면")
+                    onClicked: {
+                        button62476357.text="라면"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    x: 0
+                    y:29
+                    width:162
+                    height: 29
+                    text: qsTr("과자")
+                    onClicked: {
+                        button62476357.text="과자"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:58
+                    width:162
+                    height: 29
+                    text: qsTr("음료")
+                    onClicked: {
+                        button62476357.text="음료"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:87
+                    width:162
+                    height: 29
+                    text: qsTr("아이스크림")
+                    onClicked: {
+                        button62476357.text="아이스크림"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:116
+                    width:162
+                    height: 29
+                    text: qsTr("빵")
+                    onClicked: {
+                        button62476357.text="빵"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:145
+                    width:162
+                    height: 29
+                    text: qsTr("커피")
+                    onClicked: {
+                        button62476357.text="커피"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:174
+                    width:162
+                    height: 29
+                    text: qsTr("주류")
+                    onClicked: {
+                        button62476357.text="주류"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:203
+                    width:162
+                    height: 29
+                    text: qsTr("초콜릿")
+                    onClicked: {
+                        button62476357.text="초콜릿"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:232
+                    width:162
+                    height: 29
+                    text: qsTr("껌")
+                    onClicked: {
+                        button62476357.text="껌"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+                Button{
+                    y:261
+                    width:162
+                    height: 29
+                    text: qsTr("냉동식품")
+                    onClicked: {
+                        button62476357.text="냉동식품"
+                        wwq.visible=false
+                        myModel2.mproductcomboSlot(button62476357.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                    }
+                }
+            }
+
+            Rectangle{
+                id:wwq2
+                visible: false
+                x:82.5
+                y:135
+                width: 162
+                height: 290
+
+                Button{
+                    y:0
+                    width:162
+                    height: 29
+                    text: qsTr("라면")
+                    onClicked: {
+                        button62476358.text="라면"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    x: 0
+                    y:29
+                    width:162
+                    height: 29
+                    text: qsTr("과자")
+                    onClicked: {
+                        button62476358.text="과자"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    y:58
+                    width:162
+                    height: 29
+                    text: qsTr("음료")
+                    onClicked: {
+                        button62476358.text="음료"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    y:87
+                    width:162
+                    height: 29
+                    text: qsTr("아이스크림")
+                    onClicked: {
+                        button62476358.text="아이스크림"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    y:116
+                    width:162
+                    height: 29
+                    text: qsTr("빵")
+                    onClicked: {
+                        button62476358.text="빵"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    y:145
+                    width:162
+                    height: 29
+                    text: qsTr("커피")
+                    onClicked: {
+                        button62476358.text="커피"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    y:174
+                    width:162
+                    height: 29
+                    text: qsTr("주류")
+                    onClicked: {
+                        button62476358.text="주류"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    y:203
+                    width:162
+                    height: 29
+                    text: qsTr("초콜릿")
+                    onClicked: {
+                        button62476358.text="초콜릿"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    y:232
+                    width:162
+                    height: 29
+                    text: qsTr("껌")
+                    onClicked: {
+                        button62476358.text="껌"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+                Button{
+                    y:261
+                    width:162
+                    height: 29
+                    text: qsTr("냉동식품")
+                    onClicked: {
+                        button62476358.text="냉동식품"
+                        wwq2.visible=false
+                        myModel5.productSlot()
+                        stackview3.push(Qt.resolvedUrl("qrc:/product.qml"))
+                    }
+                }
+            }
+        }
+
+        Frame{
+            id: dibal
+            visible: false
+            x:0
+            y:0
+            opacity: 1
+            implicitWidth: 300;
+            implicitHeight: 300;
+            anchors.fill: parent
+
+            Rectangle{
+                visible: true
+                x:-9
+                y:-9
+                opacity: 0.495
+                anchors.fill: parent
+                anchors.bottomMargin: -9
+                anchors.rightMargin: -9
+                anchors.topMargin: -9
+                anchors.leftMargin: -9
+            }
+
+            Rectangle{
+                x:(parent.width-width)/2
+                y:(parent.height-height)/2
+                border.width: 2
+                implicitWidth: 300;
+                implicitHeight: 350;
+
+                Button{
+                    x:156
+                    y:301
+                    width: 60
+                    height: 31
+                    Text{
+                        text: "발주"
+                        font.pointSize: 11
+                        anchors.centerIn: parent
+                    }
+                    onClicked: {
+                        myModel4.addiv(comboboxtext.text, combobox1text.text, mnum.text)
+                        myModel2.mproductcomboSlot(comboboxtext.text)
+                        stackview3.push(Qt.resolvedUrl("qrc:/mproducttable.qml"))
+                        dibal.visible=false
+                    }
+                }
+
+                Button{
+                    x:222
+                    y:301
+                    width: 60
+                    height: 31
+                    Text{
+                        text: "닫기"
+                        font.pointSize: 11
+                        anchors.centerIn: parent
+                    }
+                    onClicked: {
+                        dibal.visible=false
+                    }
+                }
+
+                Label {
+                    x: 25
+                    y: 72
+                    width: 78
+                    height: 31
+                    text: qsTr("카테고리")
+                    font.pointSize: 15
+                }
+
+                ComboBox {
+                    id: comboBox
+                    x: 126
+                    y: 76
+                    width: 148
+                    height: 27
+
+                    model: CategoryCombobox {}
+
+                    delegate: ItemDelegate{
+                        width:200
+                        text: categorycomboboxdata
+
+                        onClicked: {
+                            comboboxtext.text=categorycomboboxdata
+                            myModel3.mcategorynameSLOT(categorycomboboxdata)
+                        }
+                    }
+                }
+                Text{
+                    id:comboboxtext
+                    x: 126
+                    y: 76
+                    width: 148
+                    height: 27
+                    text: qsTr("")
+                    font.pointSize: 13
+                }
+
+                Label {
+                    x: 25
+                    y: 116
+                    width: 78
+                    height: 31
+                    text: qsTr("상품명")
+                    font.pointSize: 15
+                }
+
+                ComboBox {
+                    id: comboBox1
+                    x: 126
+                    y: 120
+                    width: 148
+                    height: 27
+
+                    model: myModel3
+
+                    delegate: ItemDelegate{
+                        width:200
+                        text: mproductcomboboxdata
+
+                        onClicked: {
+                            combobox1text.text=mproductcomboboxdata
+                        }
+                    }
+                }
+                Text{
+                    id:combobox1text
+                    x: 126
+                    y: 120
+                    width: 148
+                    height: 27
+                    text: qsTr("")
+                    font.pointSize: 13
+                }
+
+                Label {
+                    x: 25
+                    y: 160
+                    width: 78
+                    height: 31
+                    text: qsTr("수량")
+                    font.pointSize: 15
+                }
+
+                Rectangle{
+                    x:126
+                    y:164
+                    width: 148
+                    height: 27
+                    border.width: 1
+
+                    TextEdit{
+                        id:mnum
+                        x:0
+                        y:0
+                        width: 148
+                        height: 27
+                        font.pointSize: 13
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}
+    D{i:0;formeditorZoom:0.66}
 }
 ##^##*/

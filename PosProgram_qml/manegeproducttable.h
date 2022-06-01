@@ -28,6 +28,36 @@ public:
         qDebug()<<name;
     }
 
+    Q_INVOKABLE void productSlot(){
+        this->beginResetModel();
+        QSqlQuery query;
+        mproductTable.clear();
+
+        query.prepare("select * from product");
+        query.exec();
+
+        while(query.next()){
+            mproductTable.append({query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString()});
+        }
+        qDebug()<<mproductTable;
+        this->endResetModel();
+    }
+
+    Q_INVOKABLE void ivSlot(){
+        this->beginResetModel();
+        QSqlQuery query;
+        mproductTable.clear();
+
+        query.prepare("select p.product_code as '상품코드', p.product_name as '상품명', p.product_sale as '가격', i.inventory_life as '유통기한', i.inventory_number as '수량' from product p join inventory i on p.product_code = i.product_code order by p.cartegory_code, p.product_code"); //쿼리문 저장-분류에 맞는 컬럼값들 가져오기
+        query.exec();
+
+        while(query.next()){
+            mproductTable.append({query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString()});
+        }
+        qDebug()<<mproductTable;
+        this->endResetModel();
+    }
+
     Q_INVOKABLE void mproductcomboSlot(QString &comboname){
         this->beginResetModel();
         qDebug()<<comboname;

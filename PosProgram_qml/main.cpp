@@ -19,6 +19,8 @@
 #include "categorycombobox.h"
 #include "mproductcombobox.h"
 #include "addinventory.h"
+#include "mproduct.h"
+#include "trashnow.h"
 
 int main(int argc, char *argv[])
 {
@@ -47,11 +49,15 @@ int main(int argc, char *argv[])
     ManegeProductTable model2_;
     MproductCombobox model3_;
     AddInventory model4_;
+    Mproduct model5_;
+    TrashNow model6_;
 
     engine.rootContext()->setContextProperty("myModel", &model_);
     engine.rootContext()->setContextProperty("myModel2", &model2_);
     engine.rootContext()->setContextProperty("myModel3", &model3_);
     engine.rootContext()->setContextProperty("myModel4", &model4_);
+    engine.rootContext()->setContextProperty("myModel5", &model5_);
+    engine.rootContext()->setContextProperty("myModel6", &model6_);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

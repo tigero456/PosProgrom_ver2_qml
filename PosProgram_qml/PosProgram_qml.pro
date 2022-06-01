@@ -16,12 +16,14 @@ SOURCES += \
         icecream.cpp \
         main.cpp \
         manegeproducttable.cpp \
+        mproduct.cpp \
         mproductcombobox.cpp \
         producttable.cpp \
         ramen.cpp \
         snack.cpp \
         sqlquerymodel.cpp \
         tablemodel.cpp \
+        trashnow.cpp \
         water.cpp
 
 RESOURCES += qml.qrc
@@ -48,10 +50,12 @@ HEADERS += \
     coffee.h \
     icecream.h \
     manegeproducttable.h \
+    mproduct.h \
     mproductcombobox.h \
     producttable.h \
     ramen.h \
     snack.h \
     sqlquerymodel.h \
     tablemodel.h \
+    trashnow.h \
     water.h
