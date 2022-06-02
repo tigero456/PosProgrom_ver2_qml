@@ -5,6 +5,7 @@
 #include <QAbstractTableModel>
 #include <QSqlTableModel>
 #include <QtSql>
+#include "sqlquerymodel.h"
 
 class TrashNow : public QAbstractTableModel
 {

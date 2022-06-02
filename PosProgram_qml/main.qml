@@ -23,7 +23,9 @@ Window {
 
     SqlQueryModel{ }
 
-    signal qmlSignal(msg: string)
+    function cppSlot(string){
+        hap.text=string
+    }
 
     property date curentTime: new Date()
     property int hour: curentTime.getHours()
@@ -509,1211 +511,1218 @@ Window {
         }
     }
 
-    Column {
-        id: column
-        anchors.fill: parent
-        Frame {
-            id: frame
+
+    Frame {
+        id: frame1
+        x: 0
+        y: 450
+        width: 500
+        height: 350
+        font.bold: false
+
+        Rectangle {
+            id: rectangle12
+            x: -8
+            y: -9
             width: 500
-            height: 450
+            height: 350
+            color: "#e8f9e8"
+            border.color: "#9c9c9c"
+            border.width: 2.5
 
-            Rectangle {
-                id: rectangle
-                x: -9
-                y: -9
-                width: 500
-                height: 45
-                color: "#06a900"
+            Button {
+                id: button24
+                x: 4
+                y: 235
+                width: 55
+                height: 111
+                text: qsTr("C\nL\nE\nA\nR")
+            }
 
-                Button {
-                    id: button13
-                    x: 2
-                    y: 2
-                    width: 75
-                    height: 41
-                    text: "판매등록"
-                    font.pointSize: 12
-                    font.bold: true
+            Button {
+                id: buttonNum2
+                x: 118
+                y: 236
+                width: 56
+                height: 58
+                text: qsTr("2")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(2)
+            }
 
-                    onClicked: {
-                        salelistwindow.show()
-                    }
+            Button {
+                id: buttonNum3
+                x: 175
+                y: 236
+                width: 56
+                height: 58
+                text: qsTr("3")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(3)
+            }
+
+            Button {
+                id: buttonNum0
+                x: 61
+                y: 295
+                width: 112
+                height: 51
+                text: qsTr("0")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(0)
+            }
+
+            Button {
+                id: buttonNum00
+                x: 175
+                y: 295
+                width: 56
+                height: 51
+                text: qsTr("00")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(00)
+            }
+
+            Button {
+                id: button33
+                x: 232
+                y: 236
+                width: 108
+                height: 58
+                text: "남 13\n객  층"
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "남13세이하"
+                    text16.color="red"
+                }
+            }
+
+            Button {
+                id: button34
+                x: 341
+                y: 236
+                width: 102
+                height: 58
+                text: qsTr("여 13\n객  층")
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "여13세이하"
+                    text16.color="red"
+                }
+            }
+
+            Button {
+                id: button35
+                x: 231
+                y: 295
+                width: 108
+                height: 51
+                text: qsTr("ENTER")
+            }
+
+            Button {
+                id: button36
+                x: 340
+                y: 295
+                width: 102
+                height: 51
+                text: qsTr("현금(합계)")
+
+                onClicked: {
+                    myModel.sum()
+                    myModel.tableclear()
+                }
+            }
+
+            Button {
+                id: button37
+                x: 445
+                y: 236
+                width: 51
+                height: 58
+                text: qsTr("상품\n조회")
+                onClicked: {
+                    infowindow.open();
                 }
 
-                Text {
-                    id: text1
-                    x: 84
-                    y: 3
-                    width: 148
-                    height: 22
-                    color: "#ffffff"
-                    font.pixelSize: 18
+            }
 
-                    Timer{
-                        id:timer1
-                        repeat:true
-                        interval:1000
-                        running:true
-                        onTriggered: {
-                            curentDate=new Date()
-                            text1.text=curentDate.getFullYear() + "-" + (curentDate.getMonth()+1) + "-" + curentDate.getDate()
+            Button {
+                id: button38
+                x: 443
+                y: 295
+                width: 53
+                height: 51
+                opacity: 1
+                visible: true
+                text: qsTr("저널\n조회")
+            }
+
+            Button {
+                id: button18
+                x: 4
+                y: 178
+                width: 55
+                height: 56
+                text: "지정\n취소"
+            }
+
+            Button {
+                id: buttonNum6
+                x: 175
+                y: 178
+                width: 56
+                height: 56
+                text: qsTr("6")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(6)
+            }
+
+            Button {
+                id: button21
+                x: 232
+                y: 178
+                width: 108
+                height: 56
+                text: "남\n14~19"
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "남14~19"
+                    text16.color="red"
+                }
+            }
+
+            Button {
+                id: button22
+                x: 341
+                y: 178
+                width: 102
+                height: 56
+                text: qsTr("여\n14~19")
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "여14~19"
+                    text16.color="red"
+                }
+            }
+
+            Button {
+                id: button23
+                x: 445
+                y: 178
+                width: 51
+                height: 56
+                text: qsTr("통계")
+                onClicked: {
+                    di.visible=true
+                }
+            }
+
+            Button {
+                id: buttonNum4
+                x: 61
+                y: 178
+                width: 56
+                height: 56
+                text: qsTr("4")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  {
+                    myModel.basketnumSlot(4)
+                }
+            }
+
+            Button {
+                id: buttonNum5
+                x: 118
+                y: 178
+                width: 56
+                height: 56
+                text: qsTr("5")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(5)
+            }
+
+            Button {
+                id: button2121212
+                x: 4
+                y: 4
+                width: 56
+                height: 56
+                text: qsTr("중지\n(ESC)")
+                onClicked: {
+                    salelistwindow.close()
+                    wwwindow.close()
+                    loader.source="main.qml"
+
+                }
+            }
+            Button {
+                id: button1
+                x: 61
+                y: 4
+                width: 112
+                height: 56
+                text: qsTr("FF-MENU")
+            }
+
+            Button {
+                id: button2
+                x: 174
+                y: 4
+                width: 56
+                height: 56
+                text: qsTr("정산")
+            }
+
+            Button {
+                id: button3
+                x: 231
+                y: 4
+                width: 110
+                height: 56
+                text: qsTr("남\n50대")
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "남50세이상"
+                    text16.color="d9eeff"
+                }
+            }
+
+            Button {
+                id: button4
+                x: 342
+                y: 4
+                width: 102
+                height: 56
+                text: qsTr("여\n50대")
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "여50세이상"
+                    text16.color="ffdefc"
+                }
+            }
+
+            Button {
+                id: button5
+                x: 445
+                y: 4
+                width: 51
+                height: 56
+                text: qsTr("관리자\n모드")
+                onClicked: {
+                    salelistwindow.close()
+                    wwwindow.close()
+                    managewindow.show()
+                }
+            }
+
+            Button {
+                id: button7
+                x: 61
+                y: 62
+                width: 112
+                height: 56
+                text: qsTr("수량")
+                onClicked: {
+                    myModel.changeNum()
+                }
+            }
+
+            Button {
+                id: button8
+                x: 174
+                y: 62
+                width: 56
+                height: 56
+                text: qsTr("보류")
+            }
+
+            Button {
+                id: button9
+                x: 231
+                y: 62
+                width: 110
+                height: 56
+                text: "남\n30~49"
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "남30~49"
+                    text16.color="d9eeff"
+                }
+            }
+
+            Button {
+                id: button10
+                x: 342
+                y: 62
+                width: 102
+                height: 56
+                text: qsTr("여\n30~49")
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "여30~49"
+                    text16.color="ffdefc"
+                }
+            }
+
+            Button {
+                id: button11
+                x: 445
+                y: 62
+                width: 51
+                height: 56
+                text: qsTr("출근\n퇴근")
+            }
+
+            Button {
+                id: button12
+                x: 4
+                y: 120
+                width: 55
+                height: 56
+                text: qsTr("일괄\n취소")
+
+                onClicked: myModel.tableclear()
+            }
+
+            Button {
+                id: buttonNum9
+                x: 175
+                y: 120
+                width: 56
+                height: 56
+                text: qsTr("9")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(9)
+            }
+
+            Button {
+                id: button15
+                x: 232
+                y: 120
+                width: 108
+                height: 56
+                text: "남\n20대"
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "남20~29"
+                    text16.color="d9eeff"
+                }
+            }
+
+            Button {
+                id: button16
+                x: 341
+                y: 120
+                width: 102
+                height: 56
+                text: qsTr("여\n20대")
+                onClicked: {
+                    rectangle1.visible = !rectangle1.visible
+                    text16.text = "여20~29"
+                    text16.color="ffdefc"
+                }
+            }
+
+            Button {
+                id: buttonNum7
+                x: 61
+                y: 120
+                width: 56
+                height: 56
+                text: qsTr("7")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(7)
+            }
+
+            Button {
+                id: buttonNum8
+                x: 118
+                y: 120
+                width: 56
+                height: 56
+                text: qsTr("8")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(8)
+            }
+
+            Button {
+                id: buttonNum1
+                x: 61
+                y: 236
+                width: 56
+                height: 58
+                text: qsTr("1")
+                font.pointSize: 17
+                font.bold: true
+                onClicked:  myModel.basketnumSlot(1)
+            }
+
+            Button {
+                id: button14
+                x: 4
+                y: 62
+                width: 55
+                height: 56
+                text: qsTr("")
+                clip: false
+            }
+        }
+    }
+
+
+    Frame {
+        id: frame
+        width: 500
+        height: 450
+
+        Rectangle {
+            id: rectangle
+            x: -9
+            y: -9
+            width: 500
+            height: 45
+            color: "#06a900"
+
+            Button {
+                id: button13
+                x: 2
+                y: 2
+                width: 75
+                height: 41
+                text: "판매등록"
+                font.pointSize: 12
+                font.bold: true
+
+                onClicked: {
+                    salelistwindow.show()
+                }
+            }
+
+            Text {
+                id: text1
+                x: 84
+                y: 3
+                width: 148
+                height: 22
+                color: "#ffffff"
+                font.pixelSize: 18
+
+                Timer{
+                    id:timer1
+                    repeat:true
+                    interval:1000
+                    running:true
+                    onTriggered: {
+                        curentDate=new Date()
+                        text1.text=curentDate.getFullYear() + "-" + (curentDate.getMonth()+1) + "-" + curentDate.getDate()
+                    }
+                }
+            }
+
+            Text {
+                id: text2
+                x: 197
+                y: 3
+                width: 60
+                height: 22
+                color: "#ffffff"
+                font.pixelSize: 18
+                Timer{
+                    id:timer
+                    repeat:true
+                    interval:1000
+                    running:true
+                    onTriggered: {
+                        curentTime=new Date()
+                        text2.text=curentTime.getHours()+ ":"+ curentTime.getMinutes()+ ":"+ curentTime.getSeconds()
+                    }
+                }
+            }
+
+            Text {
+                id: text3
+                x: 102
+                y: 23
+                width: 60
+                height: 22
+                color: "#ffffff"
+                text: qsTr("POS 01")
+                font.pixelSize: 18
+            }
+
+            Text {
+                id: text4
+                x: 197
+                y: 23
+                width: 60
+                height: 22
+                color: "#ffffff"
+                text: "김창희"
+                font.pixelSize: 18
+            }
+
+            Text {
+                id: text5
+                x: 322
+                y: 15
+                width: 60
+                height: 22
+                color: "#ffffff"
+                text: "객층"
+                font.pixelSize: 18
+            }
+
+            Text {
+                id: text16
+                x: 366
+                y: 15
+                width: 104
+                height: 22
+                color: "#ffffff"
+                font.pixelSize: 18
+            }
+
+            StackView{
+                id: stackview4
+                x: 3
+                y: 92
+                width: 496
+                height: 256
+
+                initialItem: Item{
+                    TableView {
+                        id: baskettableview
+                        width: 496
+                        height: 256
+                        columnSpacing: 0
+                        rowSpacing: 0
+                        clip: true
+
+                        property var columnWidths: [53, 299, 79, 63]
+                        columnWidthProvider: function (column) { return columnWidths[column] }
+
+                        property alias tableVerticalBar: tableVerticalBar
+
+                        ScrollBar.vertical: ScrollBar {
+                            id: tableVerticalBar
+                            policy:ScrollBar.AlwaysOn
                         }
-                    }
-                }
 
-                Text {
-                    id: text2
-                    x: 197
-                    y: 3
-                    width: 60
-                    height: 22
-                    color: "#ffffff"
-                    font.pixelSize: 18
-                    Timer{
-                        id:timer
-                        repeat:true
-                        interval:1000
-                        running:true
-                        onTriggered: {
-                            curentTime=new Date()
-                            text2.text=curentTime.getHours()+ ":"+ curentTime.getMinutes()+ ":"+ curentTime.getSeconds()
-                        }
-                    }
-                }
+                        //model: TableModel {}
+                        model: myModel
 
-                Text {
-                    id: text3
-                    x: 102
-                    y: 23
-                    width: 60
-                    height: 22
-                    color: "#ffffff"
-                    text: qsTr("POS 01")
-                    font.pixelSize: 18
-                }
-
-                Text {
-                    id: text4
-                    x: 197
-                    y: 23
-                    width: 60
-                    height: 22
-                    color: "#ffffff"
-                    text: "김창희"
-                    font.pixelSize: 18
-                }
-
-                Text {
-                    id: text5
-                    x: 322
-                    y: 15
-                    width: 60
-                    height: 22
-                    color: "#ffffff"
-                    text: "객층"
-                    font.pixelSize: 18
-                }
-
-                Text {
-                    id: text16
-                    x: 366
-                    y: 15
-                    width: 104
-                    height: 22
-                    color: "#ffffff"
-                    font.pixelSize: 18
-                }
-
-                StackView{
-                    id: stackview4
-                    x: 3
-                    y: 92
-                    width: 496
-                    height: 256
-
-                    initialItem: Item{
-                        TableView {
-                            id: baskettableview
-                            width: 496
-                            height: 256
-                            columnSpacing: 0
-                            rowSpacing: 0
-                            clip: true
-
-                            property var columnWidths: [53, 299, 79, 63]
-                            columnWidthProvider: function (column) { return columnWidths[column] }
-
-                            property alias tableVerticalBar: tableVerticalBar
-
-                            ScrollBar.vertical: ScrollBar {
-                                id: tableVerticalBar
-                                policy:ScrollBar.AlwaysOn
-                            }
-
-                            //model: TableModel {}
-                            model: myModel
-
-                            delegate: Rectangle{
-                                id:tetet
-                                border.color: "gray"
-                                border.width: 1
-                                //color: (heading==true)?"lightgreen" : "white"
-                                MouseArea{
-                                    x:0
-                                    y:0
-                                    width: 496
-                                    height: 30
-                                    Text {
-                                        //text: tabledata
-                                        text: baskettabledata
-                                        font.pointSize: 17
-                                    }
-                                    onClicked: {
-                                        myModel.basketnameSlot(baskettabledata)
-                                        tetet.color= "lightblue"
-                                    }
+                        delegate: Rectangle{
+                            id:tetet
+                            border.color: "gray"
+                            border.width: 1
+                            //color: (heading==true)?"lightgreen" : "white"
+                            MouseArea{
+                                x:0
+                                y:0
+                                width: 496
+                                height: 30
+                                Text {
+                                    //text: tabledata
+                                    text: baskettabledata
+                                    font.pointSize: 17
+                                }
+                                onClicked: {
+                                    myModel.basketnameSlot(baskettabledata)
+                                    tetet.color= "lightblue"
                                 }
                             }
                         }
                     }
                 }
+            }
+
+            Rectangle {
+                id: rectangle13
+                x: 3
+                y: 46
+                width: 495
+                height: 45
+                color: "#ffffff"
+                border.width: 1
 
                 Rectangle {
-                    id: rectangle13
-                    x: 3
-                    y: 46
-                    width: 495
+                    id: rectangle14
+                    x: 0
+                    y: 0
+                    width: 53
                     height: 45
-                    color: "#ffffff"
+                    color: "lightgreen"
+                    border.color: "gray"
                     border.width: 1
 
-                    Rectangle {
-                        id: rectangle14
-                        x: 0
-                        y: 0
-                        width: 53
-                        height: 45
-                        color: "lightgreen"
-                        border.color: "gray"
-                        border.width: 1
-
-                        Text {
-                            id: text17
-                            x: 8
-                            y: 4
-                            text: qsTr("NO")
-                            font.pixelSize: 22
-                        }
-                    }
-                    Rectangle {
-                        id: rectangle15
-                        x: 53
-                        y: 0
-                        width: 300
-                        height: 45
-                        color: "lightgreen"
-                        border.color: "#808080"
-                        border.width: 1
-                        Text {
-                            id: text18
-                            x: 8
-                            y: 4
-                            text: qsTr("상품명")
-                            font.pixelSize: 22
-                        }
-                    }
-                    Rectangle {
-                        id: rectangle142342
-                        x: 352
-                        y: 0
-                        width: 79
-                        height: 45
-                        color: "lightgreen"
-                        border.color: "gray"
-                        border.width: 1
-
-                        Text {
-                            id: text172342
-                            x: 8
-                            y: 4
-                            text: qsTr("단가")
-                            font.pixelSize: 22
-                        }
-                    }
-                    Rectangle {
-                        id: rectangle14342
-                        x: 431
-                        y: 0
-                        width: 63
-                        height: 45
-                        color: "lightgreen"
-                        border.color: "gray"
-                        border.width: 1
-
-                        Text {
-                            id: text172352
-                            x: 8
-                            y: 4
-                            text: qsTr("수량")
-                            font.pixelSize: 22
-                        }
+                    Text {
+                        id: text17
+                        x: 8
+                        y: 4
+                        text: qsTr("NO")
+                        font.pixelSize: 22
                     }
                 }
-
                 Rectangle {
-                    x: 2
-                    y: 351
-                    width: 247
-                    height: 95
+                    id: rectangle15
+                    x: 53
+                    y: 0
+                    width: 300
+                    height: 45
+                    color: "lightgreen"
+                    border.color: "#808080"
+                    border.width: 1
+                    Text {
+                        id: text18
+                        x: 8
+                        y: 4
+                        text: qsTr("상품명")
+                        font.pixelSize: 22
+                    }
+                }
+                Rectangle {
+                    id: rectangle142342
+                    x: 352
+                    y: 0
+                    width: 79
+                    height: 45
+                    color: "lightgreen"
+                    border.color: "gray"
+                    border.width: 1
+
+                    Text {
+                        id: text172342
+                        x: 8
+                        y: 4
+                        text: qsTr("단가")
+                        font.pixelSize: 22
+                    }
+                }
+                Rectangle {
+                    id: rectangle14342
+                    x: 431
+                    y: 0
+                    width: 63
+                    height: 45
+                    color: "lightgreen"
+                    border.color: "gray"
+                    border.width: 1
+
+                    Text {
+                        id: text172352
+                        x: 8
+                        y: 4
+                        text: qsTr("수량")
+                        font.pixelSize: 22
+                    }
+                }
+            }
+
+            Rectangle {
+                x: 2
+                y: 351
+                width: 247
+                height: 95
+                border.color: "#000000"
+                border.width: 1.2
+                Rectangle {
+                    x: 0
+                    y: 0
+                    width: 70
+                    height: 48
+                    color: "#f3f3f3"
                     border.color: "#000000"
-                    border.width: 1.2
-                    Rectangle {
-                        x: 0
-                        y: 0
-                        width: 70
-                        height: 48
-                        color: "#f3f3f3"
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("합계")
-                            anchors.centerIn: parent
-                            font.pointSize: 20
-                        }
-                    }
-
-                    Rectangle {
-                        x: 0
-                        y: 48
-                        width: 70
-                        height: 47
-                        color: "#f3f3f3"
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("수량")
-                            anchors.centerIn: parent
-                            font.pointSize: 20
-                        }
-                    }
-
-                    Rectangle {
-                        x: 70
-                        y: 0
-                        width: 176
-                        height: 48
-                        color: "#f3f3f3"
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("0")
-                            anchors.centerIn: parent
-                            font.pointSize: 20
-                        }
-                    }
-
-                    Rectangle {
-                        x: 70
-                        y: 48
-                        width: 176
-                        height: 47
-                        color: "#f3f3f3"
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("0")
-                            anchors.centerIn: parent
-                            font.pointSize: 20
-                        }
+                    Text {
+                        id:hap
+                        text: qsTr("합계")
+                        anchors.centerIn: parent
+                        font.pointSize: 20
                     }
                 }
 
                 Rectangle {
-                    id: payrec
-                    x: 249
-                    y: 351
-                    width: 250
-                    height: 95
+                    x: 0
+                    y: 48
+                    width: 70
+                    height: 47
+                    color: "#f3f3f3"
                     border.color: "#000000"
-                    border.width: 1.2
-                    Rectangle {
-                        x: 0
-                        y: 0
-                        width: 102
-                        height: 32
-                        color: "#ccf1ff"
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("받을금액")
-                            anchors.centerIn: parent
-                            font.pointSize: 15
-                        }
-                    }
-
-                    Rectangle {
-                        x: 0
-                        y: 32
-                        width: 102
-                        height: 33
-                        color: "#ccf1ff"
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("받은금액")
-                            anchors.centerIn: parent
-                            font.pointSize: 15
-                        }
-                    }
-
-                    Rectangle {
-                        x: 0
-                        y: 65
-                        width: 102
-                        height: 30
-                        color: "#ccf1ff"
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("거스름")
-                            anchors.centerIn: parent
-                            font.pointSize: 15
-                        }
-                    }
-
-                    Rectangle {
-                        x: 101
-                        y: 0
-                        width: 148
-                        height: 32
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("0")
-                            anchors.centerIn: parent
-                            font.pointSize: 15
-                        }
-                    }
-
-                    Rectangle {
-                        x: 101
-                        y: 32
-                        width: 148
-                        height: 33
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("0")
-                            anchors.centerIn: parent
-                            font.pointSize: 15
-                        }
-                    }
-
-                    Rectangle {
-                        x: 101
-                        y: 65
-                        width: 148
-                        height: 29
-                        border.color: "#000000"
-                        Text {
-                            text: qsTr("0")
-                            anchors.centerIn: parent
-                            font.pointSize: 15
-                        }
+                    Text {
+                        text: qsTr("수량")
+                        anchors.centerIn: parent
+                        font.pointSize: 20
                     }
                 }
 
                 Rectangle {
-                    id: rectangle1
-                    x: 20
-                    y: 100
-                    width: 450
-                    height: 200
-                    visible:true
-                    color: "#ffffff"
+                    x: 70
+                    y: 0
+                    width: 176
+                    height: 48
+                    color: "#f3f3f3"
+                    border.color: "#000000"
+                    Text {
+                        text: qsTr("0")
+                        anchors.centerIn: parent
+                        font.pointSize: 20
+                    }
+                }
+
+                Rectangle {
+                    x: 70
+                    y: 48
+                    width: 176
+                    height: 47
+                    color: "#f3f3f3"
+                    border.color: "#000000"
+                    Text {
+                        text: qsTr("0")
+                        anchors.centerIn: parent
+                        font.pointSize: 20
+                    }
+                }
+            }
+
+            Rectangle {
+                id: payrec
+                x: 249
+                y: 351
+                width: 250
+                height: 95
+                border.color: "#000000"
+                border.width: 1.2
+                Rectangle {
+                    x: 0
+                    y: 0
+                    width: 102
+                    height: 32
+                    color: "#ccf1ff"
+                    border.color: "#000000"
+                    Text {
+                        text: qsTr("받을금액")
+                        anchors.centerIn: parent
+                        font.pointSize: 15
+                    }
+                }
+
+                Rectangle {
+                    x: 0
+                    y: 32
+                    width: 102
+                    height: 33
+                    color: "#ccf1ff"
+                    border.color: "#000000"
+                    Text {
+                        text: qsTr("받은금액")
+                        anchors.centerIn: parent
+                        font.pointSize: 15
+                    }
+                }
+
+                Rectangle {
+                    x: 0
+                    y: 65
+                    width: 102
+                    height: 30
+                    color: "#ccf1ff"
+                    border.color: "#000000"
+                    Text {
+                        text: qsTr("거스름")
+                        anchors.centerIn: parent
+                        font.pointSize: 15
+                    }
+                }
+
+                Rectangle {
+                    x: 101
+                    y: 0
+                    width: 148
+                    height: 32
+                    border.color: "#000000"
+                    Text {
+                        text: qsTr("0")
+                        anchors.centerIn: parent
+                        font.pointSize: 15
+                    }
+                }
+
+                Rectangle {
+                    x: 101
+                    y: 32
+                    width: 148
+                    height: 33
+                    border.color: "#000000"
+                    Text {
+                        text: qsTr("0")
+                        anchors.centerIn: parent
+                        font.pointSize: 15
+                    }
+                }
+
+                Rectangle {
+                    x: 101
+                    y: 65
+                    width: 148
+                    height: 29
+                    border.color: "#000000"
+                    Text {
+                        text: qsTr("0")
+                        anchors.centerIn: parent
+                        font.pointSize: 15
+                    }
+                }
+            }
+
+            Rectangle {
+                id: rectangle1
+                x: 20
+                y: 100
+                width: 450
+                height: 200
+                visible:true
+                color: "#ffffff"
+                border.color: "black"
+                border.width: 1
+
+                Rectangle {
+                    id: rectangle2
+                    x: 0
+                    y: 0
+                    width: 90
+                    height: 100
+                    color: "#d9eeff"
                     border.color: "black"
                     border.width: 1
 
-                    Rectangle {
-                        id: rectangle2
+                    Text {
+                        id: text6
+                        color: "#ff0000"
+                        text: qsTr("남13세이하")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea{
                         x: 0
                         y: 0
                         width: 90
                         height: 100
-                        color: "#d9eeff"
-                        border.color: "black"
-                        border.width: 1
 
-                        Text {
-                            id: text6
-                            color: "#ff0000"
-                            text: qsTr("남13세이하")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
-
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "남13세이하"
-                                text16.color="red"
-                            }
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "남13세이하"
+                            text16.color="red"
                         }
                     }
+                }
 
-                    Rectangle {
-                        id: rectangle3
-                        x: 90
-                        y: 0
-                        width: 90
-                        height: 100
-                        color: "#d9eeff"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text8
-                            color: "#ff0000"
-                            text: qsTr("남14~19")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "남14~19"
-                                text16.color="red"
-                            }
-                        }
+                Rectangle {
+                    id: rectangle3
+                    x: 90
+                    y: 0
+                    width: 90
+                    height: 100
+                    color: "#d9eeff"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text8
+                        color: "#ff0000"
+                        text: qsTr("남14~19")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
                     }
-
-                    Rectangle {
-                        id: rectangle4
-                        x: 180
-                        y: 0
-                        width: 90
-                        height: 100
-                        color: "#d9eeff"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text10
-                            color: "#000000"
-                            text: qsTr("남20~29")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
-
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "남20~29"
-                                text16.color="d9eeff"
-                            }
-                        }
-                    }
-
-                    Rectangle {
-                        id: rectangle5
-                        x: 270
-                        y: 0
-                        width: 90
-                        height: 100
-                        color: "#d9eeff"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text11
-                            color: "#000000"
-                            text: qsTr("남30~49")
-                            font.pixelSize:16
-                            anchors.centerIn: parent
-                        }
-
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "남30~49"
-                                text16.color="d9eeff"
-                            }
-                        }
-                    }
-
-                    Rectangle {
-                        id: rectangle6
-                        x: 360
-                        y: 0
-                        width: 90
-                        height: 100
-                        color: "#d9eeff"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text12
-                            color: "#000000"
-                            text: qsTr("남50세이상")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
-
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "남50세이상"
-                                text16.color="d9eeff"
-                            }
-                        }
-                    }
-
-                    Rectangle {
-                        id: rectangle7
+                    MouseArea{
                         x: 0
-                        y: 100
+                        y: 0
                         width: 90
                         height: 100
-                        color: "#ffdefc"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text7
-                            color: "#ff0000"
-                            text: qsTr("여13세이하")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
 
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "여13세이하"
-                                text16.color="red"
-                            }
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "남14~19"
+                            text16.color="red"
                         }
                     }
+                }
 
-                    Rectangle {
-                        id: rectangle8
-                        x: 90
-                        y: 100
+                Rectangle {
+                    id: rectangle4
+                    x: 180
+                    y: 0
+                    width: 90
+                    height: 100
+                    color: "#d9eeff"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text10
+                        color: "#000000"
+                        text: qsTr("남20~29")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea{
+                        x: 0
+                        y: 0
                         width: 90
                         height: 100
-                        color: "#ffdefc"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text9
-                            color: "#ff0000"
-                            text: qsTr("여14~19")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
 
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "여14~19"
-                                text16.color="red"
-                            }
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "남20~29"
+                            text16.color="d9eeff"
                         }
                     }
+                }
 
-                    Rectangle {
-                        id: rectangle9
-                        x: 180
-                        y: 100
+                Rectangle {
+                    id: rectangle5
+                    x: 270
+                    y: 0
+                    width: 90
+                    height: 100
+                    color: "#d9eeff"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text11
+                        color: "#000000"
+                        text: qsTr("남30~49")
+                        font.pixelSize:16
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea{
+                        x: 0
+                        y: 0
                         width: 90
                         height: 100
-                        color: "#ffdefc"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text13
-                            color: "#000000"
-                            text: qsTr("여20~29")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
 
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "여20~29"
-                                text16.color="ffdefc"
-                            }
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "남30~49"
+                            text16.color="d9eeff"
                         }
                     }
+                }
 
-                    Rectangle {
-                        id: rectangle10
-                        x: 270
-                        y: 100
+                Rectangle {
+                    id: rectangle6
+                    x: 360
+                    y: 0
+                    width: 90
+                    height: 100
+                    color: "#d9eeff"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text12
+                        color: "#000000"
+                        text: qsTr("남50세이상")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea{
+                        x: 0
+                        y: 0
                         width: 90
                         height: 100
-                        color: "#ffdefc"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text14
-                            color: "#000000"
-                            text: qsTr("여30~49")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
 
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "여30~49"
-                                text16.color="ffdefc"
-                            }
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "남50세이상"
+                            text16.color="d9eeff"
                         }
                     }
+                }
 
-                    Rectangle {
-                        id: rectangle11
-                        x: 360
-                        y: 100
+                Rectangle {
+                    id: rectangle7
+                    x: 0
+                    y: 100
+                    width: 90
+                    height: 100
+                    color: "#ffdefc"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text7
+                        color: "#ff0000"
+                        text: qsTr("여13세이하")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea{
+                        x: 0
+                        y: 0
                         width: 90
                         height: 100
-                        color: "#ffdefc"
-                        border.color: "#000000"
-                        border.width: 1
-                        Text {
-                            id: text15
-                            color: "#000000"
-                            text: qsTr("여50세이상")
-                            font.pixelSize: 16
-                            anchors.centerIn: parent
-                        }
 
-                        MouseArea{
-                            x: 0
-                            y: 0
-                            width: 90
-                            height: 100
-
-                            onClicked: {
-                                rectangle1.visible = !rectangle1.visible
-                                text16.text = "여50세이상"
-                                text16.color="ffdefc"
-                            }
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "여13세이하"
+                            text16.color="red"
                         }
                     }
                 }
 
+                Rectangle {
+                    id: rectangle8
+                    x: 90
+                    y: 100
+                    width: 90
+                    height: 100
+                    color: "#ffdefc"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text9
+                        color: "#ff0000"
+                        text: qsTr("여14~19")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
+                    }
 
-            }
-        }
+                    MouseArea{
+                        x: 0
+                        y: 0
+                        width: 90
+                        height: 100
 
-        Frame {
-            id: frame1
-            x: 0
-            y: 350
-            width: 500
-            height: 350
-            font.bold: false
-
-            Rectangle {
-                id: rectangle12
-                x: -8
-                y: -9
-                width: 500
-                height: 350
-                color: "#e8f9e8"
-                border.color: "#9c9c9c"
-                border.width: 2.5
-
-                Button {
-                    id: button24
-                    x: 4
-                    y: 235
-                    width: 55
-                    height: 111
-                    text: qsTr("C\nL\nE\nA\nR")
-                }
-
-                Button {
-                    id: buttonNum2
-                    x: 118
-                    y: 236
-                    width: 56
-                    height: 58
-                    text: qsTr("2")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(2)
-                }
-
-                Button {
-                    id: buttonNum3
-                    x: 175
-                    y: 236
-                    width: 56
-                    height: 58
-                    text: qsTr("3")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(3)
-                }
-
-                Button {
-                    id: buttonNum0
-                    x: 61
-                    y: 295
-                    width: 112
-                    height: 51
-                    text: qsTr("0")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(0)
-                }
-
-                Button {
-                    id: buttonNum00
-                    x: 175
-                    y: 295
-                    width: 56
-                    height: 51
-                    text: qsTr("00")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(00)
-                }
-
-                Button {
-                    id: button33
-                    x: 232
-                    y: 236
-                    width: 108
-                    height: 58
-                    text: "남 13\n객  층"
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "남13세이하"
-                        text16.color="red"
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "여14~19"
+                            text16.color="red"
+                        }
                     }
                 }
 
-                Button {
-                    id: button34
-                    x: 341
-                    y: 236
-                    width: 102
-                    height: 58
-                    text: qsTr("여 13\n객  층")
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "여13세이하"
-                        text16.color="red"
+                Rectangle {
+                    id: rectangle9
+                    x: 180
+                    y: 100
+                    width: 90
+                    height: 100
+                    color: "#ffdefc"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text13
+                        color: "#000000"
+                        text: qsTr("여20~29")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea{
+                        x: 0
+                        y: 0
+                        width: 90
+                        height: 100
+
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "여20~29"
+                            text16.color="ffdefc"
+                        }
                     }
                 }
 
-                Button {
-                    id: button35
-                    x: 231
-                    y: 295
-                    width: 108
-                    height: 51
-                    text: qsTr("ENTER")
-                }
-
-                Button {
-                    id: button36
-                    x: 340
-                    y: 295
-                    width: 102
-                    height: 51
-                    text: qsTr("현금(합계)")
-                }
-
-                Button {
-                    id: button37
-                    x: 445
-                    y: 236
-                    width: 51
-                    height: 58
-                    text: qsTr("상품\n조회")
-                    onClicked: {
-                        infowindow.open();
+                Rectangle {
+                    id: rectangle10
+                    x: 270
+                    y: 100
+                    width: 90
+                    height: 100
+                    color: "#ffdefc"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text14
+                        color: "#000000"
+                        text: qsTr("여30~49")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
                     }
 
-                }
+                    MouseArea{
+                        x: 0
+                        y: 0
+                        width: 90
+                        height: 100
 
-                Button {
-                    id: button38
-                    x: 443
-                    y: 295
-                    width: 53
-                    height: 51
-                    opacity: 1
-                    visible: true
-                    text: qsTr("저널\n조회")
-                }
-
-                Button {
-                    id: button18
-                    x: 4
-                    y: 178
-                    width: 55
-                    height: 56
-                    text: "지정\n취소"
-                }
-
-                Button {
-                    id: buttonNum6
-                    x: 175
-                    y: 178
-                    width: 56
-                    height: 56
-                    text: qsTr("6")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(6)
-                }
-
-                Button {
-                    id: button21
-                    x: 232
-                    y: 178
-                    width: 108
-                    height: 56
-                    text: "남\n14~19"
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "남14~19"
-                        text16.color="red"
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "여30~49"
+                            text16.color="ffdefc"
+                        }
                     }
                 }
 
-                Button {
-                    id: button22
-                    x: 341
-                    y: 178
-                    width: 102
-                    height: 56
-                    text: qsTr("여\n14~19")
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "여14~19"
-                        text16.color="red"
+                Rectangle {
+                    id: rectangle11
+                    x: 360
+                    y: 100
+                    width: 90
+                    height: 100
+                    color: "#ffdefc"
+                    border.color: "#000000"
+                    border.width: 1
+                    Text {
+                        id: text15
+                        color: "#000000"
+                        text: qsTr("여50세이상")
+                        font.pixelSize: 16
+                        anchors.centerIn: parent
                     }
-                }
 
-                Button {
-                    id: button23
-                    x: 445
-                    y: 178
-                    width: 51
-                    height: 56
-                    text: qsTr("통계")
-                    onClicked: {
-                        di.visible=true
+                    MouseArea{
+                        x: 0
+                        y: 0
+                        width: 90
+                        height: 100
+
+                        onClicked: {
+                            rectangle1.visible = !rectangle1.visible
+                            text16.text = "여50세이상"
+                            text16.color="ffdefc"
+                        }
                     }
-                }
-
-                Button {
-                    id: buttonNum4
-                    x: 61
-                    y: 178
-                    width: 56
-                    height: 56
-                    text: qsTr("4")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  {
-                        myModel.basketnumSlot(4)
-                    }
-                }
-
-                Button {
-                    id: buttonNum5
-                    x: 118
-                    y: 178
-                    width: 56
-                    height: 56
-                    text: qsTr("5")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(5)
-                }
-
-                Button {
-                    id: button2121212
-                    x: 4
-                    y: 4
-                    width: 56
-                    height: 56
-                    text: qsTr("중지\n(ESC)")
-                    onClicked: {
-                        salelistwindow.close()
-                        wwwindow.close()
-                        loader.source="main.qml"
-
-                    }
-                }
-                Button {
-                    id: button1
-                    x: 61
-                    y: 4
-                    width: 112
-                    height: 56
-                    text: qsTr("FF-MENU")
-                }
-
-                Button {
-                    id: button2
-                    x: 174
-                    y: 4
-                    width: 56
-                    height: 56
-                    text: qsTr("정산")
-                }
-
-                Button {
-                    id: button3
-                    x: 231
-                    y: 4
-                    width: 110
-                    height: 56
-                    text: qsTr("남\n50대")
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "남50세이상"
-                        text16.color="d9eeff"
-                    }
-                }
-
-                Button {
-                    id: button4
-                    x: 342
-                    y: 4
-                    width: 102
-                    height: 56
-                    text: qsTr("여\n50대")
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "여50세이상"
-                        text16.color="ffdefc"
-                    }
-                }
-
-                Button {
-                    id: button5
-                    x: 445
-                    y: 4
-                    width: 51
-                    height: 56
-                    text: qsTr("관리자\n모드")
-                    onClicked: {
-                        salelistwindow.close()
-                        wwwindow.close()
-                        managewindow.show()
-                    }
-                }
-
-                Button {
-                    id: button7
-                    x: 61
-                    y: 62
-                    width: 112
-                    height: 56
-                    text: qsTr("수량")
-                    onClicked: {
-                        myModel.changeNum()
-                    }
-                }
-
-                Button {
-                    id: button8
-                    x: 174
-                    y: 62
-                    width: 56
-                    height: 56
-                    text: qsTr("보류")
-                }
-
-                Button {
-                    id: button9
-                    x: 231
-                    y: 62
-                    width: 110
-                    height: 56
-                    text: "남\n30~49"
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "남30~49"
-                        text16.color="d9eeff"
-                    }
-                }
-
-                Button {
-                    id: button10
-                    x: 342
-                    y: 62
-                    width: 102
-                    height: 56
-                    text: qsTr("여\n30~49")
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "여30~49"
-                        text16.color="ffdefc"
-                    }
-                }
-
-                Button {
-                    id: button11
-                    x: 445
-                    y: 62
-                    width: 51
-                    height: 56
-                    text: qsTr("출근\n퇴근")
-                }
-
-                Button {
-                    id: button12
-                    x: 4
-                    y: 120
-                    width: 55
-                    height: 56
-                    text: qsTr("일괄\n취소")
-                }
-
-                Button {
-                    id: buttonNum9
-                    x: 175
-                    y: 120
-                    width: 56
-                    height: 56
-                    text: qsTr("9")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(9)
-                }
-
-                Button {
-                    id: button15
-                    x: 232
-                    y: 120
-                    width: 108
-                    height: 56
-                    text: "남\n20대"
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "남20~29"
-                        text16.color="d9eeff"
-                    }
-                }
-
-                Button {
-                    id: button16
-                    x: 341
-                    y: 120
-                    width: 102
-                    height: 56
-                    text: qsTr("여\n20대")
-                    onClicked: {
-                        rectangle1.visible = !rectangle1.visible
-                        text16.text = "여20~29"
-                        text16.color="ffdefc"
-                    }
-                }
-
-                Button {
-                    id: button17
-                    x: 445
-                    y: 120
-                    width: 51
-                    height: 56
-                    text: qsTr("폐기")
-
-                    onClicked: {
-                        stackview4.push(Qt.resolvedUrl("qrc:/trash.qml"))
-                    }
-                }
-
-                Button {
-                    id: buttonNum7
-                    x: 61
-                    y: 120
-                    width: 56
-                    height: 56
-                    text: qsTr("7")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(7)
-                }
-
-                Button {
-                    id: buttonNum8
-                    x: 118
-                    y: 120
-                    width: 56
-                    height: 56
-                    text: qsTr("8")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(8)
-                }
-
-                Button {
-                    id: buttonNum1
-                    x: 61
-                    y: 236
-                    width: 56
-                    height: 58
-                    text: qsTr("1")
-                    font.pointSize: 17
-                    font.bold: true
-                    onClicked:  myModel.basketnumSlot(1)
-                }
-
-                Button {
-                    id: button14
-                    x: 4
-                    y: 62
-                    width: 55
-                    height: 56
-                    text: qsTr("")
-                    clip: false
                 }
             }
+
+            Button {
+                id: button17
+                x: 446
+                y: 570
+                width: 51
+                height: 56
+                text: qsTr("폐기")
+
+                onClicked: {
+                    stackview4.push(Qt.resolvedUrl("qrc:/trash.qml"))
+                }
+            }
+
+
         }
     }
+
 
     Frame{
         id: di

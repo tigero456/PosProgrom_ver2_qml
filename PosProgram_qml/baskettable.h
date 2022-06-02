@@ -85,8 +85,79 @@ public:
         basketTable[q][3]=QString::number(count);
 
         qDebug()<< basketTable.value(q);
+        qmlSignaldata();
         this->endResetModel();
     }
+
+    Q_INVOKABLE void tableclear(){
+        this->beginResetModel();
+        basketTable.clear();
+        i=0;
+
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        basketTable.append({"", "", "", ""});
+        qDebug()<< basketTable;
+        this->endResetModel();
+    }
+
+    void qmlSignaldata(){
+        emit qmlSignal(f.value(2));
+        emit qmlSignal(QString::number(count));
+    }
+
+    Q_INVOKABLE void sum(){
+        this->beginResetModel();
+        QSqlQuery query;
+        QString p_code;
+        QVectorIterator<QVector<QString>> v(basketTable);
+
+        int q=0;
+        while(v.hasNext()){
+            d = v.next();
+            q++;
+        }
+        /*int summoney=0;
+
+        for(int e=0; e<q; e++){
+            int money=basketTable.value(e).value(2).toInt();
+            summoney += money;
+        }*/
+
+        query.prepare("select max(sales_code) from paylist");
+        query.exec();
+        query.next();
+        int max_code = query.value(0).toInt();
+
+        int r=0;
+        while(1){
+            query.prepare("select product_code from product where product_name = '"+basketTable.value(r).value(1)+"'");
+            query.exec();
+            query.next();
+            p_code=query.value(0).toString();
+
+            query.prepare("insert into paylist (sales_code, product_code, sales_date, sales_time, sales_number) values("+QString::number(max_code+1)+", "+p_code+", curdate(), curtime(), '"+basketTable.value(r).value(3)+"')");
+            query.exec();                                     //실행
+            if(r==q){
+                break;
+            }
+            r++;
+        }
+
+        qDebug()<< basketTable;
+        this->endResetModel();
+    }
+
+signals:
+    void qmlSignal(QString msg);
 
 private:
     QVector<QVector<QString>> basketTable;
@@ -95,6 +166,7 @@ private:
     int count=0;
     QString b_name=nullptr;
     QVector<QString> f;
+    QVector<QString> d;
 };
 
 #endif // BASKETTABLE_H

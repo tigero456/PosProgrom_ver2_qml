@@ -69,8 +69,8 @@ int main(int argc, char *argv[])
 
     QObject *item=engine.rootObjects().value(0);
 
-    ProductTable CategoryNameObject;
-    QObject::connect(item, SIGNAL(qmlSignal(QString)), &CategoryNameObject, SLOT(cppSlot(QString)));
+    BasketTable NameObject;
+    QObject::connect(item, SIGNAL(qmlSignal(QString)), &NameObject, SLOT(cppSlot(QString)));
 
     return app.exec();
 }
